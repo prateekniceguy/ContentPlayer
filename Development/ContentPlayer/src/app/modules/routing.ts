@@ -12,7 +12,6 @@ export const APP_ROUTES: Routes = [
 ];
 
 
-
 /**
  * Main module routing
  *
