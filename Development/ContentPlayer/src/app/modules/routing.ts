@@ -1,14 +1,18 @@
 /**
  * Routing Module
  */
+import { ContainerComponent } from '../controller/container/container.component';
+import { VideoComponent } from '../controller/video/video.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 
 export const APP_ROUTES: Routes = [
-    { path: 'about', loadChildren: './about/about.module#AboutModule' },
-    { path: '', redirectTo: 'home', pathMatch: 'full'},
-    { path: '**', redirectTo: 'home', pathMatch: 'full'}
+  { path: '', component: ContainerComponent },
+  { path: 'player', component: ContainerComponent, children: [
+    { path: '', redirectTo: 'player', pathMatch: 'full' },
+    { path: 'video', component: VideoComponent }
+  ]}
 ];
 
 
