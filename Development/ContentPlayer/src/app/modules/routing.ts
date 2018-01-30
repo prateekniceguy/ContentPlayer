@@ -1,8 +1,8 @@
 /**
  * Routing Module
  */
-import { ContainerComponent } from '../controller/container/container.component';
-import { VideoComponent } from '../controller/video/video.component';
+import { ContainerComponent } from '../controller/container.component';
+import { VideoComponent } from '../controller/video.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 

@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './modules/routing';
-import { ContainerComponent } from './controller/container/container.component';
-import { VideoComponent } from './controller/video/video.component';
+import { ContainerComponent } from './controller/container.component';
+import { VideoComponent } from './controller/video.component';
 
 
 @NgModule({
