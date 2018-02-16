@@ -6,7 +6,7 @@ import { AppRoutingModule } from './modules/routing';
 import { ContainerComponent } from './controller/container.component';
 import { VideoComponent } from './controller/video.component';
 import { SignalrCustomModule } from './modules/signalr';
-
+import { NouisliderModule } from 'ng2-nouislider';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { SignalrCustomModule } from './modules/signalr';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SignalrCustomModule
+    SignalrCustomModule,
+    NouisliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
