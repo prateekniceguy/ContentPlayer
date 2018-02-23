@@ -1,4 +1,4 @@
-@import url('~nouislider/distribute/nouislider.css');
-div {
-	border: solid 4px;
+@import "~nouislider/distribute/nouislider.min.css";
+#slider .noUi-connects {
+	background: #c0392b;
 }

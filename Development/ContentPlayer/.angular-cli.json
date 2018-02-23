@@ -23,7 +23,10 @@
       ],
       "scripts": [
 		"../node_modules/jquery/dist/jquery.min.js",
-		"../node_modules/signalr/jquery.signalR.js"
+		"../node_modules/signalr/jquery.signalR.js",
+		"../node_modules/bootstrap-slider/dist/bootstrap-slider.js",
+		"../node_modules/nouislider/distribute/nouislider.js"
+		
 	  ],
       "environmentSource": "environments/environment.ts",
       "environments": {
