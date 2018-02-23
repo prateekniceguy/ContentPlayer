@@ -2,7 +2,7 @@
   video works!
 </p>
 <div style="border: 1px solid black;">
-<nouislider id="slider" [connect]="true" [min]="0" [max]="15" [(ngModel)]="someRange"></nouislider>
+<nouislider id="slider" [connect]="[true, false]" [min]="0" [max]="15" [(ngModel)]="someRange"></nouislider>
 
 <input name="foo" type="text" id="seek-bar" min="0" max="100" value="0" step="1"/>
 </div>
