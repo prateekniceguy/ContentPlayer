@@ -30,15 +30,15 @@ export class ExternalcommunicationService implements DataHandler {
     this.startConnection();*/
   }
 
-  loadData(data) {
+  loadData(data, success, failure) {
     throw new Error('Method not implemented.');
   }
 
-  dataLoadedSuccess() {
+  dataLoadedSuccess(success) {
     throw new Error('Method not implemented.');
   }
 
-  dataLoadedFailure() {
+  dataLoadedFailure(failure) {
     throw new Error('Method not implemented.');
   }
 
