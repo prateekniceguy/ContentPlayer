@@ -42,7 +42,7 @@ export class ApplicationmodelService {
 
 
   baseLoaded(data) {
-
+    console.log('ApplicationmodelService: baseLoaded - data = ', data);
   }
 
   baseFailed(error) {
