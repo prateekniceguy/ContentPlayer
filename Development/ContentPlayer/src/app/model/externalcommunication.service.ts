@@ -1,9 +1,10 @@
+import {DataHandler} from './interfaces/dataHandler';
 import {Injectable, EventEmitter} from '@angular/core';
 
 declare var $: any;
 
 @Injectable()
-export class ExternalcommunicationService {
+export class ExternalcommunicationService implements DataHandler {
 
   private proxy: any;
   private proxyName: String = 'sr';
@@ -14,8 +15,9 @@ export class ExternalcommunicationService {
   public connectionExists: Boolean;
 
   constructor() {
+    console.log('ExternalcommunicationService: constructor');
     // Constructor initialization
-    this.connectionEstablished = new EventEmitter<Boolean>();
+    /*this.connectionEstablished = new EventEmitter<Boolean>();// existing code to delete
     this.messageReceived = new EventEmitter<any>();
     this.connectionExists = false;
     // create hub connection
@@ -25,14 +27,27 @@ export class ExternalcommunicationService {
     // register on server events
     this.registerOnServerEvents();
     // call the connecion start method to start the connection to send and receive events.
-    this.startConnection();
+    this.startConnection();*/
   }
 
-  // method to hit from client
+  loadData(data) {
+    throw new Error('Method not implemented.');
+  }
+
+  dataLoadedSuccess() {
+    throw new Error('Method not implemented.');
+  }
+
+  dataLoadedFailure() {
+    throw new Error('Method not implemented.');
+  }
+
+  /* existing code to delte // method to hit from client
   public sendTime() {
     // server side hub method using proxy.invoke with method name pass as param
     this.proxy.invoke('GetRealTime');
   }
+
   // check in the browser console for either signalr connected or not
   private startConnection(): void {
     this.connection.start().done((data: any) => {
@@ -44,6 +59,7 @@ export class ExternalcommunicationService {
       this.connectionEstablished.emit(false);
     });
   }
+
   private registerOnServerEvents(): void {
     this.proxy.on('open', (data: any) => {
       console.log('received in SignalRService: ' + JSON.stringify(data));
@@ -61,6 +77,6 @@ export class ExternalcommunicationService {
       console.log('received in SignalRService: ' + JSON.stringify(data));
       this.messageReceived.emit(data);
     });
-  }
+  }*/
 
 }
