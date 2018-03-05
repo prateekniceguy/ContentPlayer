@@ -1,6 +1,8 @@
+import {Content} from './content';
 import {DataloaderService} from './dataloader.service';
 import {ExternalcommunicationService} from './externalcommunication.service';
 import {HttphandlerService} from './httphandler.service';
+import {InitializationAPI, Helper} from './initializationapi';
 import {DataHandler} from './interfaces/dataHandler';
 import {Injectable} from '@angular/core';
 
@@ -10,6 +12,8 @@ export class ApplicationmodelService {
   dataLoader: DataloaderService;
   dataHandler: DataHandler;
   httpHandler: HttphandlerService;
+  initValues: InitializationAPI;
+  currentActive: number;
 
   constructor(httpHandler: HttphandlerService, dataLoader: DataloaderService, externalCommunication: ExternalcommunicationService) {
     this.httpHandler = httpHandler;
@@ -43,6 +47,9 @@ export class ApplicationmodelService {
 
   baseLoaded(data) {
     console.log('ApplicationmodelService: baseLoaded - data = ', data);
+    this.initValues = data;
+    this.currentActive = 0;
+    this.load(this.initValues.files[this.currentActive]);
   }
 
   baseFailed(error) {
@@ -51,6 +58,10 @@ export class ApplicationmodelService {
 
   initFailed(error) {
     console.log('ApplicationmodelService: initFailed - error = ', error);
+  }
+
+  load(value: Helper) {
+    console.log('ApplicationmodelService: load - value = ', value);
   }
 
 }

@@ -32,7 +32,7 @@ export class HttphandlerService {
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       ).subscribe(data => {
-        console.log('HttphandlerService: get - subscribe - =>', this)
+        console.log('HttphandlerService: get - subscribe - =>', this);
         success(data);
       }, error => {
         failure(error);
