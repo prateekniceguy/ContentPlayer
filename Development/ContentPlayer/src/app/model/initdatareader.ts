@@ -5,7 +5,7 @@ export class InitDataReader {
   }
 
   read(data): InitializationAPI {
-    const output: InitializationAPI = new InitializationAPI();
+
 
     console.log('InitDataReader: read', data);
 
@@ -21,18 +21,13 @@ export class InitDataReader {
       throw new Error('Invalid data');
     }
 
-    output.homePath = data.homePath;
-    output.forwardEnabled = data.forwardEnabled;
-    output.playerPreview = data.playerPreview;
-    output.sessionId = data.sessionId;
-
+    const initHelperCollection: Array<Helper> = new Array<Helper>();
     for (let i = 0; i < data.files.length; i++) {
       const inithelper: Helper = new Helper(
         data.files[i].startAt, data.files[i].segmentId, data.files[i].file);
-      output.files.push(inithelper);
+      initHelperCollection.push(inithelper);
     }
+    return new InitializationAPI(data.homePath, data.forwardEnabled, data.playerPreview, data.sessionId, initHelperCollection);
 
-
-    return output;
   }
 }

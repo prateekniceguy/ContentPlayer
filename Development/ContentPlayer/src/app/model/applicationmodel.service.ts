@@ -1,3 +1,4 @@
+import {CommonloaderService} from './commonloader.service';
 import {Content} from './content';
 import {DataloaderService} from './dataloader.service';
 import {ExternalcommunicationService} from './externalcommunication.service';
@@ -14,9 +15,12 @@ export class ApplicationmodelService {
   httpHandler: HttphandlerService;
   initValues: InitializationAPI;
   currentActive: number;
+  commonLoader: CommonloaderService;
 
-  constructor(httpHandler: HttphandlerService, dataLoader: DataloaderService, externalCommunication: ExternalcommunicationService) {
+  constructor(httpHandler: HttphandlerService, commonLoader: CommonloaderService,
+    dataLoader: DataloaderService, externalCommunication: ExternalcommunicationService) {
     this.httpHandler = httpHandler;
+    this.commonLoader = commonLoader;
     this.externalCommunication = externalCommunication;
     this.dataLoader = dataLoader;
     this.init();
@@ -62,6 +66,8 @@ export class ApplicationmodelService {
 
   load(value: Helper) {
     console.log('ApplicationmodelService: load - value = ', value);
+    const content: Content = this.commonLoader.createContent(value);
+
   }
 
 }

@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { ContainerComponent } from './controller/container.component';
 import { VideoComponent } from './controller/video.component';
 import { ApplicationmodelService } from './model/applicationmodel.service';
+import { CommonloaderService } from './model/commonloader.service';
 import { DataloaderService } from './model/dataloader.service';
 import { HttphandlerService } from './model/httphandler.service';
 
@@ -26,7 +27,7 @@ import { HttphandlerService } from './model/httphandler.service';
     SignalrCustomModule.forRoot(),
     NouisliderModule
   ],
-  providers: [DataloaderService, ApplicationmodelService, HttphandlerService],
+  providers: [DataloaderService, ApplicationmodelService, CommonloaderService, HttphandlerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
