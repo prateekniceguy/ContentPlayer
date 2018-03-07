@@ -12,18 +12,18 @@ export class DataloaderService implements DataHandler {
     console.log('DataloaderService: constructor');
   }
 
-  loadData(data, success, failure) {
+  loadData(data, success, failure): void {
     // throw new Error('Method not implemented.');
     this.initValues = new InitDataReader().read(JSON.parse(data.data));
     this.dataLoadedSuccess(success);
     console.log('DataloaderService: loadData', this.initValues);
   }
 
-  dataLoadedSuccess(success) {
+  dataLoadedSuccess(success): void {
     success(this.initValues);
   }
 
-  dataLoadedFailure(failure) {
+  dataLoadedFailure(failure): void {
     throw new Error('Method not implemented.');
   }
 

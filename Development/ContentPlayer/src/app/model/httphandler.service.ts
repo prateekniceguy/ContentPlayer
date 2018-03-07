@@ -1,13 +1,14 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import { catchError, retry } from 'rxjs/operators';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
+import {catchError, retry} from 'rxjs/operators';
 
 @Injectable()
 export class HttphandlerService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
 
   private handleError(error: HttpErrorResponse) {
@@ -23,16 +24,34 @@ export class HttphandlerService {
     }
     // return an ErrorObservable with a user-facing error message
     return new ErrorObservable(
-    'Something bad happened; please try again later.');
+      'Something bad happened; please try again later.');
   }
 
   get(url: string, success, failure) {
     this.http.get(url)
       .pipe(
-        retry(3), // retry a failed request up to 3 times
-        catchError(this.handleError) // then handle the error
+      retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError) // then handle the error
       ).subscribe(data => {
         console.log('HttphandlerService: get - subscribe - =>', this);
+        success(data);
+      }, error => {
+        failure(error);
+      }
+      );
+  }
+
+  getMultiple(urls: Array<string>, success, failure) {
+    const requests = [];
+    for (let i = 0; i < urls.length; i++) {
+      requests.push(this.http.get(urls[i]));
+    }
+    Observable.forkJoin(requests).pipe(
+      retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError) // then handle the error
+    ).subscribe(
+      data => {
+        console.log('HttphandlerService: getMultiple - subscribe - =>', this);
         success(data);
       }, error => {
         failure(error);

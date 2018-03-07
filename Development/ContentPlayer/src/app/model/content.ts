@@ -1,17 +1,39 @@
 export class Content {
-  private contentDesign: ContentDesign;
-  private contentData: ContentData;
-  private contentLogic: ContentLogic;
 
   constructor(contentDesign: ContentDesign, contentData: ContentData, contentLogic: ContentLogic) {
-    this.contentDesign = contentDesign;
-    this.contentData = contentData;
-    this.contentLogic = contentLogic;
+    this._contentDesign = contentDesign;
+    this._contentData = contentData;
+    this._contentLogic = contentLogic;
+  }
+
+  private _contentDesign: ContentDesign;
+
+  get contentDesign(): ContentDesign {
+    return this._contentDesign;
+  }
+
+  private _contentData: ContentData;
+
+  get contentData(): ContentData {
+    return this._contentData;
+  }
+
+  private _contentLogic: ContentLogic;
+
+  get contentLogic(): ContentLogic {
+    return this._contentLogic;
   }
 
 }
 export class ContentDesign {}
 export class ContentData {}
 export class ContentLogic {
-  functionalityType: number;
+  constructor(functionalityType: number) {
+    this._functionalityType = functionalityType;
+  }
+  private _functionalityType: number;
+
+  get functionalityType(): number {
+    return this._functionalityType;
+  }
 }
