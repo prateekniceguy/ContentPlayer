@@ -64,8 +64,7 @@ export class CommonloaderService {
     const contentCollection: Array<Content> = new Array<Content>();
     while (data.length >= 3) {
       const cdesign: ContentDesign = new ContentDesign();
-      const functionalityType = 1;
-      const clogic: ContentLogic = new ContentLogic(functionalityType);
+      const clogic: ContentLogic = new ContentLogic(data[2].type);
       const cdata: ContentData = new ContentData();
       contentCollection.push(new Content(cdesign, cdata, clogic));
       data.splice(0, 3);
