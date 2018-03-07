@@ -78,12 +78,12 @@ export class ApplicationmodelService {
 
   private load(value: Helper): void {
     console.log('ApplicationmodelService: load - value = ', value);
-    const content: Content = this.commonLoader.createContent(value, this.loadCompleted.bind(this), this.loadFailed.bind(this));
+    this.commonLoader.createContent(value, this.loadCompleted.bind(this), this.loadFailed.bind(this));
 
   }
 
-  private loadCompleted(c: Content): void {
-
+  private loadCompleted(c: Array<Content>): void {
+    console.log('ApplicationmodelService: loadCompleted - c = ', c);
   }
 
   private loadFailed(error): void {

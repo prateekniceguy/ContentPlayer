@@ -8,30 +8,20 @@ import {Injectable} from '@angular/core';
 export class CommonloaderService {
   private httpHandler: HttphandlerService;
   private helper: Helper;
+  private success;
+  private failure;
 
   constructor(httpHandler: HttphandlerService) {
     this.httpHandler = httpHandler;
   }
 
-  createContent(helper: Helper, success, failure): Content {
+  createContent(helper: Helper, success, failure): void {
     this.helper = helper;
-    const cdesign: ContentDesign = new ContentDesign();
-
-
-    const functionalityType = 1;
-    const clogic: ContentLogic = new ContentLogic(functionalityType);
-    const cdata: ContentData = new ContentData();
-
-
+    this.success = success;
+    this.failure = failure;
 
     // load base file
     this.httpHandler.get(helper.file + PlayerConstants.BASE_FILE, this.baseLoaded.bind(this), this.loadFailed.bind(this));
-
-
-
-
-    const c: Content = new Content(cdesign, cdata, clogic);
-    return c;
   }
 
   baseLoaded(data) {
@@ -44,13 +34,9 @@ export class CommonloaderService {
 
   loadFailed(error) {
     console.log('CommonloaderService: loadFailed - error = ', error);
+    this.failure(error);
   }
 
-
-
-  loadSection(sectionId: string) {
-    console.log('CommonloaderService: loadSection - sectionId = ', sectionId);
-  }
 
   sectionsLoaded(data) {
     console.log('CommonloaderService: sectionsLoaded - data = ', data);
@@ -61,20 +47,35 @@ export class CommonloaderService {
         this.helper.file + data[i].logic + PlayerConstants.JSON_FILE_EXTENSION
       );
     }
+    console.log('CommonloaderService: sectionsLoaded - section = ', section);
     this.httpHandler.getMultiple(section, this.subsectionsLoaded.bind(this), this.subsectionsFailed.bind(this));
   }
 
   sectionsFailed(error) {
     console.log('CommonloaderService: sectionsFailed - error = ', error);
+    this.failure(error);
   }
 
 
   subsectionsLoaded(data) {
     console.log('CommonloaderService: subsectionsLoaded - data = ', data);
+    console.log('CommonloaderService: subsectionsLoaded - data.length = ', data.length);
+    console.log('CommonloaderService: subsectionsLoaded - data[2] = ', data[2]);
+    const contentCollection: Array<Content> = new Array<Content>();
+    while (data.length >= 3) {
+      const cdesign: ContentDesign = new ContentDesign();
+      const functionalityType = 1;
+      const clogic: ContentLogic = new ContentLogic(functionalityType);
+      const cdata: ContentData = new ContentData();
+      contentCollection.push(new Content(cdesign, cdata, clogic));
+      data.splice(0, 3);
+    }
+    this.success(contentCollection);
   }
 
   subsectionsFailed(error) {
     console.log('CommonloaderService: subsectionsFailed - error = ', error);
+    this.failure(error);
   }
 
 
