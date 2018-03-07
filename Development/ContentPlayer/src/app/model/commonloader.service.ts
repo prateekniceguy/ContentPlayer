@@ -24,7 +24,7 @@ export class CommonloaderService {
     this.httpHandler.get(helper.file + PlayerConstants.BASE_FILE, this.baseLoaded.bind(this), this.loadFailed.bind(this));
   }
 
-  baseLoaded(data) {
+  private baseLoaded(data): void {
     console.log('CommonloaderService: baseLoaded - data = ', data);
     for (let i = 0; i < data.length; i++) {
       data[i] = this.helper.file + data[i] + PlayerConstants.JSON_FILE_EXTENSION;
@@ -32,13 +32,13 @@ export class CommonloaderService {
     this.httpHandler.getMultiple(data, this.sectionsLoaded.bind(this), this.sectionsFailed.bind(this));
   }
 
-  loadFailed(error) {
+  private loadFailed(error): void {
     console.log('CommonloaderService: loadFailed - error = ', error);
     this.failure(error);
   }
 
 
-  sectionsLoaded(data) {
+  private sectionsLoaded(data): void {
     console.log('CommonloaderService: sectionsLoaded - data = ', data);
     const section = [];
     for (let i = 0; i < data.length; i++) {
@@ -51,13 +51,13 @@ export class CommonloaderService {
     this.httpHandler.getMultiple(section, this.subsectionsLoaded.bind(this), this.subsectionsFailed.bind(this));
   }
 
-  sectionsFailed(error) {
+  private sectionsFailed(error): void {
     console.log('CommonloaderService: sectionsFailed - error = ', error);
     this.failure(error);
   }
 
 
-  subsectionsLoaded(data) {
+  private subsectionsLoaded(data): void {
     console.log('CommonloaderService: subsectionsLoaded - data = ', data);
     console.log('CommonloaderService: subsectionsLoaded - data.length = ', data.length);
     console.log('CommonloaderService: subsectionsLoaded - data[2] = ', data[2]);
@@ -72,7 +72,7 @@ export class CommonloaderService {
     this.success(contentCollection);
   }
 
-  subsectionsFailed(error) {
+  private subsectionsFailed(error): void {
     console.log('CommonloaderService: subsectionsFailed - error = ', error);
     this.failure(error);
   }
