@@ -11,7 +11,7 @@ export const APP_ROUTES: Routes = [
   { path: '', component: ContainerComponent },
   { path: 'player', component: ContainerComponent, children: [
     { path: '', redirectTo: 'player', pathMatch: 'full' },
-    { path: 'video', component: VideoComponent }
+    { path: 'video', component: VideoComponent, runGuardsAndResolvers: 'always'}
   ]}
 ];
 
@@ -22,7 +22,7 @@ export const APP_ROUTES: Routes = [
  * contains code related to routing
  */
 @NgModule({
-  imports: [RouterModule.forRoot(APP_ROUTES)],
+  imports: [RouterModule.forRoot(APP_ROUTES, {onSameUrlNavigation:  'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

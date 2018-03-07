@@ -6,6 +6,7 @@ import {HttphandlerService} from './httphandler.service';
 import {InitializationAPI, Helper} from './initializationapi';
 import {DataHandler} from './interfaces/dataHandler';
 import {Injectable} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ApplicationmodelService {
@@ -16,11 +17,15 @@ export class ApplicationmodelService {
   private initValues: InitializationAPI;
   private currentActive: number;
   private commonLoader: CommonloaderService;
+  private contentCollection: Array<Content>;
+  private currentSection: number;
+  private router: Router;
 
-  constructor(httpHandler: HttphandlerService, commonLoader: CommonloaderService,
+  constructor(router: Router, httpHandler: HttphandlerService, commonLoader: CommonloaderService,
     dataLoader: DataloaderService, externalCommunication: ExternalcommunicationService) {
     this.httpHandler = httpHandler;
     this.commonLoader = commonLoader;
+    this.router = router;
     this.externalCommunication = externalCommunication;
     this.dataLoader = dataLoader;
     this.init();
@@ -84,10 +89,27 @@ export class ApplicationmodelService {
 
   private loadCompleted(c: Array<Content>): void {
     console.log('ApplicationmodelService: loadCompleted - c = ', c);
+    this.contentCollection = c;
+    this.currentSection = 0;
+    this.runContent();
   }
 
   private loadFailed(error): void {
     console.log('ApplicationmodelService: loadFailed - error = ', error);
+  }
+
+  private runContent(): void {
+    const functionalityType = this.contentCollection[this.currentSection].contentLogic.functionalityType;
+    switch (functionalityType) {
+      case 0:
+        this.navigateToRoute('/player/video');
+        break;
+    }
+
+  }
+
+  private navigateToRoute(value: string): void {
+    this.router.navigateByUrl(value);
   }
 
 }
