@@ -26,7 +26,16 @@ export class Content {
 
 }
 export class ContentDesign {}
-export class ContentData {}
+export class ContentData {
+  constructor(data: object) {
+    this._data = data;
+  }
+  private _data: object;
+
+  get data(): object {
+    return this._data;
+  }
+}
 export class ContentLogic {
   constructor(functionalityType: number) {
     this._functionalityType = functionalityType;

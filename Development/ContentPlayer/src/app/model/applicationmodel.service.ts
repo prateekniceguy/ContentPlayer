@@ -6,7 +6,7 @@ import {HttphandlerService} from './httphandler.service';
 import {InitializationAPI, Helper} from './initializationapi';
 import {DataHandler} from './interfaces/dataHandler';
 import {Injectable} from '@angular/core';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class ApplicationmodelService {
@@ -15,11 +15,11 @@ export class ApplicationmodelService {
   private dataHandler: DataHandler;
   private httpHandler: HttphandlerService;
   private initValues: InitializationAPI;
-  private currentActive: number;
+  private currentActive: number; // nugget
   private commonLoader: CommonloaderService;
   private contentCollection: Array<Content>;
-  private currentSection: number;
   private router: Router;
+  private currentSection: number; // question
 
   constructor(router: Router, httpHandler: HttphandlerService, commonLoader: CommonloaderService,
     dataLoader: DataloaderService, externalCommunication: ExternalcommunicationService) {
@@ -36,6 +36,10 @@ export class ApplicationmodelService {
 
     // load startup config
     this.httpHandler.get('./assets/config/init.json', this.initLoaded.bind(this), this.initFailed.bind(this));
+  }
+
+  get content(): Content {
+    return this.contentCollection[this.currentSection];
   }
 
   private initLoaded(data): void {
@@ -99,7 +103,7 @@ export class ApplicationmodelService {
   }
 
   private runContent(): void {
-    const functionalityType = this.contentCollection[this.currentSection].contentLogic.functionalityType;
+    const functionalityType = this.contentCollection[this.currentActive].contentLogic.functionalityType;
     switch (functionalityType) {
       case 0:
         this.navigateToRoute('/player/video');

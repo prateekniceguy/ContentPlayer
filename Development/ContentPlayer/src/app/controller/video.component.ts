@@ -20,8 +20,8 @@ export class VideoComponent implements OnInit {
     /*this.sliderRef = new Slider('#seek-bar', { id: "slider5a",
      * formatter: updateTimeTT, min: 0, max: 100, value: 0, forwardValue: maxtime + 1, forwardEnabled: !p });
      */
-    this.sliderRef = new Slider('#seek-bar', { id: 'slider5a',
-      min: 0, max: 100, value: 0, forwardValue: 50, forwardEnabled: false });
+    /*this.sliderRef = new Slider('#seek-bar', { id: 'slider5a',// latest
+      min: 0, max: 100, value: 0, forwardValue: 50, forwardEnabled: false });*/
   }
 
 }
