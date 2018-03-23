@@ -98,12 +98,34 @@ export class ApplicationmodelService {
     this.runContent();
   }
 
+  public nextSection(): void {
+    this.currentSection++;
+    console.log('ApplicationmodelService: nextSection - currentSection=',
+      this.currentSection, 'contentCollection.length', this.contentCollection.length);
+    if (this.currentSection >= this.contentCollection.length) {
+      this.nextCollection();
+    } else {
+      this.runContent();
+    }
+  }
+
+  private nextCollection(): void {
+    this.currentActive++;
+    console.log('ApplicationmodelService: nextSection - currentActive=',
+      this.currentActive, 'initValues.files.length', this.initValues.files.length);
+    if (this.currentActive >= this.initValues.files.length) {
+      this.load(this.initValues.files[this.currentActive]);
+    } else {
+      // finished
+    }
+  }
+
   private loadFailed(error): void {
     console.log('ApplicationmodelService: loadFailed - error = ', error);
   }
 
   private runContent(): void {
-    const functionalityType = this.contentCollection[this.currentActive].contentLogic.functionalityType;
+    const functionalityType = this.contentCollection[this.currentSection].contentLogic.functionalityType;
     switch (functionalityType) {
       case 0:
         this.navigateToRoute('/player/video');

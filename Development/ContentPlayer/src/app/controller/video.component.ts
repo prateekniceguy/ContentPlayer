@@ -34,4 +34,20 @@ export class VideoComponent implements OnInit {
     return this.appModel.content.id + '/' + this.appModel.content.contentData.data['path'];
   }
 
+  get sourceType(): string {
+    console.log('VideoComponent: sourceType=', this.appModel.content.contentData.data['type']);
+    return this.appModel.content.contentData.data['type'];
+  }
+
+  updateHandler(event) {
+    const duration = event.currentTarget.duration;
+    const current = event.currentTarget.currentTime;
+
+  }
+
+  endedHandler(event) {
+    console.log('VideoComponent: endedHandler');
+    this.appModel.nextSection();
+  }
+
 }
