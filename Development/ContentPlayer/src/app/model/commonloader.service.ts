@@ -7,6 +7,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class CommonloaderService {
   private httpHandler: HttphandlerService;
+  private screenData: Array<string>;
   private helper: Helper;
   private success;
   private failure;
@@ -26,10 +27,12 @@ export class CommonloaderService {
 
   private baseLoaded(data): void {
     console.log('CommonloaderService: baseLoaded - data = ', data);
+    this.screenData = data;
+    const localdata = [];
     for (let i = 0; i < data.length; i++) {
-      data[i] = this.helper.file + data[i] + PlayerConstants.JSON_FILE_EXTENSION;
+      localdata[i] = this.helper.file + data[i] + PlayerConstants.JSON_FILE_EXTENSION;
     }
-    this.httpHandler.getMultiple(data, this.sectionsLoaded.bind(this), this.sectionsFailed.bind(this));
+    this.httpHandler.getMultiple(localdata, this.sectionsLoaded.bind(this), this.sectionsFailed.bind(this));
   }
 
   private loadFailed(error): void {
@@ -66,7 +69,7 @@ export class CommonloaderService {
       const cdesign: ContentDesign = new ContentDesign();
       const clogic: ContentLogic = new ContentLogic(data[2].type);
       const cdata: ContentData = new ContentData(data[0]);
-      contentCollection.push(new Content(cdesign, cdata, clogic));
+      contentCollection.push(new Content(this.helper.file + this.screenData.shift(), cdesign, cdata, clogic));
       data.splice(0, 3);
     }
     this.success(contentCollection);

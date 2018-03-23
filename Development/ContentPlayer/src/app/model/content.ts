@@ -1,9 +1,16 @@
 export class Content {
 
-  constructor(contentDesign: ContentDesign, contentData: ContentData, contentLogic: ContentLogic) {
+  constructor(id: string, contentDesign: ContentDesign, contentData: ContentData, contentLogic: ContentLogic) {
+    this._id = id;
     this._contentDesign = contentDesign;
     this._contentData = contentData;
     this._contentLogic = contentLogic;
+  }
+
+  private _id: string;
+
+  get id(): string {
+    return this._id;
   }
 
   private _contentDesign: ContentDesign;

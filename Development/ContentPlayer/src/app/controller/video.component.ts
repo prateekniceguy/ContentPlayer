@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {ApplicationmodelService} from '../model/applicationmodel.service';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 
 declare var Slider: any;
 
@@ -6,14 +7,18 @@ declare var Slider: any;
   selector: 'app-video',
   templateUrl: '../view/layout/video.component.html',
   styleUrls: ['../view/css/video.component.css', '../view/css/bootstrap.css',
-     '../view/css/bootstrap-slider.css'],
+    '../view/css/bootstrap-slider.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class VideoComponent implements OnInit {
 
+  private appModel: ApplicationmodelService;
+
   someRange = 5;
   sliderRef = null;
-  constructor() {
+
+  constructor(appModel: ApplicationmodelService) {
+    this.appModel = appModel;
   }
 
   ngOnInit() {
@@ -22,6 +27,11 @@ export class VideoComponent implements OnInit {
      */
     /*this.sliderRef = new Slider('#seek-bar', { id: 'slider5a',// latest
       min: 0, max: 100, value: 0, forwardValue: 50, forwardEnabled: false });*/
+  }
+
+  get path(): string {
+    console.log('VideoComponent: path=', this.appModel.content.id + '/' + this.appModel.content.contentData.data['path']);
+    return this.appModel.content.id + '/' + this.appModel.content.contentData.data['path'];
   }
 
 }
