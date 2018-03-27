@@ -19,6 +19,7 @@ export class ApplicationmodelService {
   private commonLoader: CommonloaderService;
   private contentCollection: Array<Content>;
   private router: Router;
+  private config: any;
   private currentSection: number; // question
 
   constructor(router: Router, httpHandler: HttphandlerService, commonLoader: CommonloaderService,
@@ -26,6 +27,9 @@ export class ApplicationmodelService {
     this.httpHandler = httpHandler;
     this.commonLoader = commonLoader;
     this.router = router;
+    this.config = [
+      ['/player/video', '/player/videoext', 0]
+    ];
     this.externalCommunication = externalCommunication;
     this.dataLoader = dataLoader;
     this.init();
@@ -102,7 +106,7 @@ export class ApplicationmodelService {
     this.currentSection++;
     console.log('ApplicationmodelService: nextSection - currentSection=',
       this.currentSection, 'contentCollection.length', this.contentCollection.length);
-    if (this.currentSection >= this.contentCollection.length) {
+    if (this.currentSection >= this.contentCollection.length - 1) {
       this.nextCollection();
     } else {
       this.runContent();
@@ -113,7 +117,7 @@ export class ApplicationmodelService {
     this.currentActive++;
     console.log('ApplicationmodelService: nextSection - currentActive=',
       this.currentActive, 'initValues.files.length', this.initValues.files.length);
-    if (this.currentActive >= this.initValues.files.length) {
+    if (this.currentActive >= this.initValues.files.length - 1) {
       this.load(this.initValues.files[this.currentActive]);
     } else {
       // finished
@@ -126,14 +130,13 @@ export class ApplicationmodelService {
 
   private runContent(): void {
     const functionalityType = this.contentCollection[this.currentSection].contentLogic.functionalityType;
-    switch (functionalityType) {
-      case 0:
-        this.navigateToRoute('/player/video');
-        break;
-    }
-
+    this.navigateToRoute(this.config[functionalityType][this.config[functionalityType][2]]);
+    this.updateConfig(functionalityType);
   }
 
+  private updateConfig(value: number): void {
+    this.config[value][2] = (this.config[value][2] === 0) ? 1 : 0;
+  }
   private navigateToRoute(value: string): void {
     this.router.navigateByUrl(value);
   }

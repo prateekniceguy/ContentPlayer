@@ -11,7 +11,8 @@ export const APP_ROUTES: Routes = [
   { path: '', component: ContainerComponent },
   { path: 'player', component: ContainerComponent, children: [
     { path: '', redirectTo: 'player', pathMatch: 'full' },
-    { path: 'video', component: VideoComponent, runGuardsAndResolvers: 'always'}
+    { path: 'video', component: VideoComponent, runGuardsAndResolvers: 'always'},
+    { path: 'videoext', component: VideoComponent, runGuardsAndResolvers: 'always'}
   ]}
 ];
 

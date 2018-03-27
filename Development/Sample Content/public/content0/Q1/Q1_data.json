@@ -1,3 +1,4 @@
 {
-	"path": "video.ogg"
+	"path": "video.ogg",
+	"type": "video/ogg"
 }
