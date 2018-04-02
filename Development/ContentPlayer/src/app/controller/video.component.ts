@@ -14,11 +14,12 @@ export class VideoComponent implements OnInit {
 
   private appModel: ApplicationmodelService;
 
-  currentTime = 0;
-  progressBarValue = 5;
-  sliderRef = null;
+  private duration;
+  protected currentTime = 0;
+  protected progressBarValue = 0;
+  protected sliderRef = null;
 
-  isPlaying = false;
+  protected isPlaying = false;
 
   @ViewChild('mainVideo') mainVideo;
 
@@ -27,6 +28,7 @@ export class VideoComponent implements OnInit {
   }
 
   ngOnInit() {
+    const thisref = this;
     /*this.sliderRef = new Slider('#seek-bar', { id: "slider5a",
      * formatter: updateTimeTT, min: 0, max: 100, value: 0, forwardValue: maxtime + 1, forwardEnabled: !p });
      */
@@ -35,7 +37,8 @@ export class VideoComponent implements OnInit {
       min: 0, max: 100, value: this.progressBarValue, forwardValue: 50, forwardEnabled: false
     });
 
-    this.sliderRef.on('mousedown', function(event) {
+    this.sliderRef.on('slideStop', function(event) {
+      thisref.currentTime = event / (100 / thisref.duration);
 
     });
 
@@ -58,6 +61,10 @@ export class VideoComponent implements OnInit {
 
     });
 
+  }
+
+  loadedHandler(event) {
+    this.duration = event.currentTarget.duration;
   }
 
   updatePlay(event) {

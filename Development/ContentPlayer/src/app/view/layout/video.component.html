@@ -11,7 +11,7 @@
 	<div id="exVideoContainer"
 		style="width: 79%; height: auto; background: purple; float: left; text-align: center;">
 		<video #mainVideo width="100%" style="max-width: 100%" [(currentTime)]="currentTime"
-			(timeupdate)="updateHandler($event)" (ended)="endedHandler($event)">
+			(loadedmetadata)="loadedHandler($event)" (timeupdate)="updateHandler($event)" (ended)="endedHandler($event)">
 			<source src="{{path}}" type="{{sourceType}}">
 		</video>
 		<!--<img width="100%" src="images/img.jpg">-->
@@ -24,8 +24,8 @@
 		style="display: flex; flex-wrap: wrap; margin: 0; clear: both; position: relative; top: 1%;">
 		<div id="playPauseContainer" class="col-sm-1" (click)="updatePlay($event)"
 			style="background: #ccc; margin: 0; position: relative; line-height: 3em; text-align: center;">
-			<div [ngStyle]="{'display': isPlaying ? 'none' : 'block'}">&#9654;</div>
-			<div [ngStyle]="{'display': !isPlaying ? 'none' : 'block'}">&#10074;&#10074;</div>
+			<div [ngStyle]="{'display': isPlaying ? 'none' : 'block'}" style="cursor: pointer">&#9654;</div>
+			<div [ngStyle]="{'display': !isPlaying ? 'none' : 'block'}" style="cursor: pointer">&#10074;&#10074;</div>
 		</div>
 		<div id="sliderContainer" class="col-sm-8"
 			style="background: #ddd; margin: 0; line-height: 3em; text-align: center;">
