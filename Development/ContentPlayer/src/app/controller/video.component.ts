@@ -1,5 +1,5 @@
 import {ApplicationmodelService} from '../model/applicationmodel.service';
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 
 declare var Slider: any;
 
@@ -14,8 +14,13 @@ export class VideoComponent implements OnInit {
 
   private appModel: ApplicationmodelService;
 
-  someRange = 5;
+  currentTime = 0;
+  progressBarValue = 5;
   sliderRef = null;
+
+  isPlaying = false;
+
+  @ViewChild('mainVideo') mainVideo;
 
   constructor(appModel: ApplicationmodelService) {
     this.appModel = appModel;
@@ -25,8 +30,43 @@ export class VideoComponent implements OnInit {
     /*this.sliderRef = new Slider('#seek-bar', { id: "slider5a",
      * formatter: updateTimeTT, min: 0, max: 100, value: 0, forwardValue: maxtime + 1, forwardEnabled: !p });
      */
-    /*this.sliderRef = new Slider('#seek-bar', { id: 'slider5a',// latest
-      min: 0, max: 100, value: 0, forwardValue: 50, forwardEnabled: false });*/
+    this.sliderRef = new Slider('#seek-bar', {
+      id: 'slider5a', // latest
+      min: 0, max: 100, value: this.progressBarValue, forwardValue: 50, forwardEnabled: false
+    });
+
+    this.sliderRef.on('mousedown', function(event) {
+
+    });
+
+    this.sliderRef.on('mouseup', function(event) {
+      console.log('VideoComponent: mouseup=', this, event);
+      // event.preventDefault();
+      /*if (p) {
+        var myVideo = $('#video')[0];
+        var newTime = this.progressBarValue / (100 / myVideo.duration);
+        myVideo.currentTime = newTime;
+      } else {
+        if ($('#seek-bar').val() <= maxtime) {
+          var myVideo = $('#video')[0];
+          var newTime = this.progressBarValue / (100 / myVideo.duration);
+          myVideo.currentTime = newTime;
+        } else {
+          $('#seek-bar').val(this.seekbarPreviousVal);
+        }
+      }*/
+
+    });
+
+  }
+
+  updatePlay(event) {
+    if (this.isPlaying) {
+      this.mainVideo.nativeElement.pause();
+    } else {
+      this.mainVideo.nativeElement.play();
+    }
+    this.isPlaying = !this.isPlaying;
   }
 
   get path(): string {
@@ -42,7 +82,12 @@ export class VideoComponent implements OnInit {
   updateHandler(event) {
     const duration = event.currentTarget.duration;
     const current = event.currentTarget.currentTime;
-
+    const value = (100 / duration) * current;
+    this.progressBarValue = value;
+    console.log('VideoComponent: updateHandler value=', value, this.progressBarValue);
+    /*this.sliderRef.setAttribute('value', value);
+    this.sliderRef.refresh();*/
+    this.sliderRef.setValue(value, false, false);
   }
 
   endedHandler(event) {
