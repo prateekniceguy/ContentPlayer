@@ -20,6 +20,7 @@ export class VideoComponent implements OnInit {
   protected sliderRef = null;
 
   protected isPlaying = false;
+  protected time = '00:00 / 00:00';
 
   @ViewChild('mainVideo') mainVideo;
 
@@ -42,24 +43,7 @@ export class VideoComponent implements OnInit {
 
     });
 
-    this.sliderRef.on('mouseup', function(event) {
-      console.log('VideoComponent: mouseup=', this, event);
-      // event.preventDefault();
-      /*if (p) {
-        var myVideo = $('#video')[0];
-        var newTime = this.progressBarValue / (100 / myVideo.duration);
-        myVideo.currentTime = newTime;
-      } else {
-        if ($('#seek-bar').val() <= maxtime) {
-          var myVideo = $('#video')[0];
-          var newTime = this.progressBarValue / (100 / myVideo.duration);
-          myVideo.currentTime = newTime;
-        } else {
-          $('#seek-bar').val(this.seekbarPreviousVal);
-        }
-      }*/
 
-    });
 
   }
 
@@ -94,12 +78,37 @@ export class VideoComponent implements OnInit {
     console.log('VideoComponent: updateHandler value=', value, this.progressBarValue);
     /*this.sliderRef.setAttribute('value', value);
     this.sliderRef.refresh();*/
+
+    const curmins = Math.floor(current / 60);
+    const cursecs = Math.floor(current - curmins * 60);
+    const durmins = Math.floor(duration / 60);
+    const dursecs = Math.floor(duration - durmins * 60);
+    const ttime = dursecs + (durmins * 60);
+    const ctime = cursecs + (curmins * 60);
+    const rtime = ttime - ctime;
+    const remainingt = this.convertDigits(Math.floor(rtime / 60)) + ':' + this.convertDigits(rtime % 60);
+    this.time = remainingt + ' / ' + this.convertDigits(durmins) + ':' + this.convertDigits(dursecs);
+
+    // update slider
     this.sliderRef.setValue(value, false, false);
+  }
+
+  updateVolume(event) {
+    console.log('VideoComponent: updateVolume - event=', event);
+    this.mainVideo.nativeElement.volume = event.target.value;
   }
 
   endedHandler(event) {
     console.log('VideoComponent: endedHandler');
     this.appModel.nextSection();
+  }
+
+  convertDigits(value: number): string {
+    if (value < 10) {
+      return '0' + value;
+    } else {
+      return '' + value;
+    }
   }
 
 }
