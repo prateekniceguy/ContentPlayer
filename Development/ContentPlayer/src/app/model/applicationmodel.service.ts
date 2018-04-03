@@ -1,5 +1,6 @@
 import {CommonloaderService} from './commonloader.service';
 import {Content} from './content';
+import { ContentCollection } from './contentcollection';
 import {DataloaderService} from './dataloader.service';
 import {ExternalcommunicationService} from './externalcommunication.service';
 import {HttphandlerService} from './httphandler.service';
@@ -17,7 +18,7 @@ export class ApplicationmodelService {
   private initValues: InitializationAPI;
   private currentActive: number; // nugget
   private commonLoader: CommonloaderService;
-  private contentCollection: Array<Content>;
+  private contentCollection: ContentCollection;
   private router: Router;
   private config: any;
   private currentSection: number; // question
@@ -43,7 +44,7 @@ export class ApplicationmodelService {
   }
 
   get content(): Content {
-    return this.contentCollection[this.currentSection];
+    return this.contentCollection.collection[this.currentSection];
   }
 
   private initLoaded(data): void {
@@ -95,7 +96,7 @@ export class ApplicationmodelService {
 
   }
 
-  private loadCompleted(c: Array<Content>): void {
+  private loadCompleted(c: ContentCollection): void {
     console.log('ApplicationmodelService: loadCompleted - c = ', c);
     this.contentCollection = c;
     this.currentSection = 0;
@@ -105,8 +106,8 @@ export class ApplicationmodelService {
   public nextSection(): void {
     this.currentSection++;
     console.log('ApplicationmodelService: nextSection - currentSection=',
-      this.currentSection, 'contentCollection.length', this.contentCollection.length);
-    if (this.currentSection >= this.contentCollection.length - 1) {
+      this.currentSection, 'contentCollection.collection.length', this.contentCollection.collection.length);
+    if (this.currentSection >= this.contentCollection.collection.length - 1) {
       this.nextCollection();
     } else {
       this.runContent();
@@ -129,7 +130,7 @@ export class ApplicationmodelService {
   }
 
   private runContent(): void {
-    const functionalityType = this.contentCollection[this.currentSection].contentLogic.functionalityType;
+    const functionalityType = this.contentCollection.collection[this.currentSection].contentLogic.functionalityType;
     this.navigateToRoute(this.config[functionalityType][this.config[functionalityType][2]]);
     this.updateConfig(functionalityType);
   }
