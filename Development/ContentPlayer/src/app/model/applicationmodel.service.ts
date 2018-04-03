@@ -1,6 +1,6 @@
 import {CommonloaderService} from './commonloader.service';
 import {Content} from './content';
-import { ContentCollection } from './contentcollection';
+import {ContentCollection} from './contentcollection';
 import {DataloaderService} from './dataloader.service';
 import {ExternalcommunicationService} from './externalcommunication.service';
 import {HttphandlerService} from './httphandler.service';
@@ -45,6 +45,10 @@ export class ApplicationmodelService {
 
   get content(): Content {
     return this.contentCollection.collection[this.currentSection];
+  }
+
+  set event(value: any) {
+    console.log('ApplicationmodelService: event - value=', value);
   }
 
   private initLoaded(data): void {
