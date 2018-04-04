@@ -1,21 +1,27 @@
 import {DataHandler} from './interfaces/dataHandler';
 import {Injectable, EventEmitter} from '@angular/core';
+import {SignalR, BroadcastEventListener} from '@dharapvj/ngx-signalr';
 
 declare var $: any;
 
 @Injectable()
 export class ExternalcommunicationService implements DataHandler {
+  private signalInstance: any;
 
   private proxy: any;
-  private proxyName: String = 'sr';
+  private proxyName: String = 'HTMLPlayerHub';
   private connection: any;
   // create the Event Emitter
   public messageReceived: EventEmitter<any>;
   public connectionEstablished: EventEmitter<Boolean>;
   public connectionExists: Boolean;
 
-  constructor() {
+  constructor(signalInstance: SignalR) {
     console.log('ExternalcommunicationService: constructor');
+
+    this.signalInstance = signalInstance;
+
+    this.connect();
     // Constructor initialization
     /*this.connectionEstablished = new EventEmitter<Boolean>();// existing code to delete
     this.messageReceived = new EventEmitter<any>();
@@ -30,8 +36,75 @@ export class ExternalcommunicationService implements DataHandler {
     this.startConnection();*/
   }
 
+  connect() {
+    this.signalInstance.connect().then((c) => {
+      console.log('ExternalcommunicationService: connect - c=', c);
+      this.connection = c;
+      this.connected();
+      this.call('playerReady', null);
+    });
+
+    /*const conx = this.connection = this.signalInstance.createConnection();
+    this.connected();
+    conx.status.subscribe((s) => console.log('ExternalcommunicationService: connect - s=', s));
+    conx.start().then((c) => {
+      console.log('ExternalcommunicationService: connect - c=', c);
+      this.call('playerReady', null);
+    });*/
+
+
+  }
+
+  call(name: string, value: any[]) {
+    console.log('ExternalcommunicationService: call - name=', name, 'value=', value);
+    if (!value || value.length <= 0) {
+      // invoke a server side method
+      this.connection.invoke(name).then((data: any[]) => {
+        console.log('ExternalcommunicationService: call - data=', data);
+      });
+
+    } else {
+      // invoke a server side method, with parameters
+      this.connection.invoke(name, value).then((data: any[]) => {
+        console.log('ExternalcommunicationService: call - data=', data);
+      });
+    }
+  }
+
+  connected() {
+    console.log('ExternalcommunicationService: connected');
+    // create a listener object
+    const open = new BroadcastEventListener<any>('open');
+    // register the listener
+    this.connection.listen(open);
+    // subscribe for incoming messages
+    open.subscribe((value: any) => {
+      console.log('ExternalcommunicationService: connected - open=', value);
+    });
+
+    // create a listener object
+    const cmsPlayerPlay = new BroadcastEventListener<any>('cmsPlayerPlay');
+    // register the listener
+    this.connection.listen(cmsPlayerPlay);
+    // subscribe for incoming messages
+    cmsPlayerPlay.subscribe((value: any) => {
+      console.log('ExternalcommunicationService: connected - cmsPlayerPlay=', value);
+    });
+
+    // create a listener object
+    const cmsPlayerPause = new BroadcastEventListener<any>('cmsPlayerPause');
+    // register the listener
+    this.connection.listen(cmsPlayerPause);
+    // subscribe for incoming messages
+    cmsPlayerPause.subscribe((value: any) => {
+      console.log('ExternalcommunicationService: connected - cmsPlayerPause=', value);
+    });
+
+  }
+
+
   loadData(data, success, failure) {
-    throw new Error('Method not implemented.');
+    this.connect();
   }
 
   dataLoadedSuccess(success) {
