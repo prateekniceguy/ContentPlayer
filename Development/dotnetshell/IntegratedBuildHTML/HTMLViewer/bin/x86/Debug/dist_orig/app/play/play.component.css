@@ -1,0 +1,74 @@
+@font-face {
+    font-family: "Kruti-Dev";
+    src: url(assets/fonts/K010.ttf);
+}
+@font-face {
+    font-family: "Gul2-Normal";
+    src: url(assets/fonts/K010.ttf);
+}
+.subject-img{display:none;}
+.opt-ans{opacity:0;}
+.clear{clear:both;}
+.margin10{margin-bottom:10px;}
+.disp-ib{
+	display:inline-block;
+	vertical-align:top;
+}
+.full-width{width:100%;}
+#container{
+	/*margin:23% auto 10%;*/
+  top: 26%;
+  display: inline-flex;
+  width: 100%;
+	position:relative;
+}
+.container-fluid{
+	height:100%;
+	width: 100%;
+	display:table;
+	padding: 11.1% 0;
+}
+.row-fluid {
+	height: 100%;
+	display:table-cell;
+	vertical-align: middle;
+}
+
+.options-block{margin:2.5% 0 0 5%;}
+.opt-ans{
+	vertical-align:middle;
+	position:relative;
+	margin:10px 0 0;
+}
+.opt-ans .option{
+	font-family:Gul2-Normal;
+	font-size:4em;
+	font-weight:200;
+	width:184px;
+	display: table-cell;
+	padding:17px 0 10px;
+	line-height:1;
+	cursor:pointer;
+	background:url(assets/images/opt_bg_default.png) no-repeat 0 0;
+}
+.tick_true,
+.tick_false{display:none; position:absolute; right:-42%; top:-230%;}
+.subject-img{
+	border:solid 8px #fff;
+	box-shadow: 2px 2px 2px #888888;
+	border-radius:13px;
+}
+
+@media (max-width:961px) {.options-block{margin:4% 0 0 5%;}}
+@media (max-width:768px) {
+.options-block{margin:5% 0 0 3%;}
+.tick_true,
+.tick_false{right:-33%;}
+}
+@media (max-width:660px) {
+#container{top:10%;}
+}
+@media (max-width:400px) {
+.tick_true,
+.tick_false{width:28%; top:-224%;}
+}

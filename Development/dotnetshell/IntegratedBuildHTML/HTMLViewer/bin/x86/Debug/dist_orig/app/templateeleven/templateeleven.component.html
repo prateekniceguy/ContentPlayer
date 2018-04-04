@@ -1,0 +1,31 @@
+
+<div #overlayOut>
+	<img #fireworks class="class3" src="assets/images/animated-fireworks-image-0051.gif">
+</div>
+<div #overlay id="container" class="container-fluid">
+	<div class="row-fluid">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 outer-height">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 set_pos image_holder" id="temp11QuesId">
+				<imgres id="div1"  [responsiveImg]="question.imgsrc" class="panel_img" [useSingleimage] = true [width] = "question.width" [height]= "question.height"></imgres>
+		    </div>
+			<div id="myCanvas"  class="canvas-class set_pos_dis"></div>
+			<div id="disableOption"  class="col-lg-3 col-md-3 col-sm-3 col-xs-3  options-block disp-inblock pos-rel full-width correct set_pos_opt">
+				<span *ngFor="let opts of myoption;let idx = index" (click)="checkAnswer(opts,$event,idx)" class="option_span">
+					<imgres [style.display]="!showHover[idx] ? 'block' : 'none'" [responsiveImg]="opts.imgsrc" class="btn1 no-padding options  opt_img" id ="{{'optimage'+idx}}" [useSingleimage] = true [width] = 395 [height]= 157 (mousemove)="onHover(opts,idx)" ></imgres>
+					<imgres [style.display]="showHover[idx] ? 'block' : 'none'" [responsiveImg]="opts.imgsrc_hover" class="btn1 no-padding options  opt_img" [useSingleimage] = true [width] = 395 [height]= 157  on-mouseout="onHoverout(opts,idx)"></imgres>
+				</span>
+			</div>
+	  </div>
+
+	<audio #narrator_voice src="{{optionslist[0].narrator_voice}}" autoplay="autoplay"></audio>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nav_btn_pos">
+		<div class="col-lg-8 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">
+			<img class="btn no-padding" src="assets/images/peechay-btn.svg" width="15%" (click)="previous()" [ngClass]="{'disable-click': currentIdx == 0}" />
+			<img #myDiv class="pull-right btn no-padding aagey-badein" src="assets/images/aagay-btn.svg" width="15%"  [ngClass]= "{ 'blink_me' :blink, 'disable-button' :(currentIdx == optionslist.length-1 && isLastActivity)}" (click)="next()"/>
+		</div>
+    </div>
+ </div>
+</div>
+
+
+

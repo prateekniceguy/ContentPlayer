@@ -1,0 +1,10 @@
+<div id="container" class="container-fluid-custom">
+<button class="btn btn-danger hide" (click)="cmsPlayerClose($event)">closeclick</button>
+<button class="btn btn-success hide" (click)="cmsPlayerPlay($event)">playbtn</button>
+<button class="btn btn-danger hide" (click)="cmsPlayerPause($event)">pausebtn</button>
+  <div class="row-fluid-custom">
+    <video  class="center" autoplay poster="assets/images/background.jpg" id="video" #videoPlayer class="main-video" oncontextmenu="return false;">
+        <source src="{{src}}" type="video/ogg">
+    </video>
+  </div>
+</div>

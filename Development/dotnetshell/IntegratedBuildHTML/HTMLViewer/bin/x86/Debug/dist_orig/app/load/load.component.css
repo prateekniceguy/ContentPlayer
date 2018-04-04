@@ -1,0 +1,26 @@
+.main-video {
+	max-width: 100%;
+	display: block;
+}
+.container-fluid-custom{
+	height:100%;
+	width: 100%;
+	display:table;
+	/*padding: 4.7% 0;*/
+}
+.row-fluid-custom {
+	height: 100%;
+	display:table-cell;
+	vertical-align: middle;
+}
+
+.center {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    max-height: 100%;
+}

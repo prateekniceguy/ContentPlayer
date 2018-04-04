@@ -1,0 +1,230 @@
+<div class="page">
+    <div class="page-wrapper">
+        <!-- <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <svg>
+                        <use xlink:href="#logo" href="#logo"></use>
+                    </svg>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="notifications-icon">
+                    <svg>
+                        <use xlink:href="#notification" href="#notification"></use>
+                    </svg>
+                </div>
+                <div class="download-icon">
+                    <svg>
+                        <use xlink:href="#download" href="#download"></use>
+                    </svg>
+                </div>
+                <div class="settings-icon">
+                    <svg>
+                        <use xlink:href="#settings" href="#settings"></use>
+                    </svg>
+                </div>
+                <div class="profile-section">
+                    <div class="profile-img-section">
+                        <img class="profile-img" src="../assets/images/avatar.png" /> </div>
+                    <div class="profile-info-section">
+                        <div class="profile-name">Ranveer S</div>
+                        <div class="profile-role">admin</div>
+                    </div>
+                    <div class="profile-more-options-section">
+                        <div class="profile-more-option">
+                            <svg>
+                                <use xlink:href="#dropdown" href="#dropdown"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header> -->
+
+        <section class="videos">
+            <div class="videos-header">
+                <!--<div class="videos-header-text">
+                    <span class="videos-header-text-primary">Number Fun | Learn Numbers 1 - 5</span>
+                    <span class="videos-header-text-secondary">5/5</span>
+                </div>-->
+                <!-- <div class="videos-header-control-options">
+                    <label class="preview-mode-section checkbox">
+                        <input type="checkbox" name="preview" />
+                        <span>Preview Mode Off</span>
+                        <div class="preview-toggler toggler"></div>
+                    </label>
+                    <div class="videos-playlists-icon">
+                        <svg>
+                            <use xlink:href="#play" href="#play"></use>
+                        </svg>
+                    </div>
+                    <div class="chat-icon">
+                        <svg>
+                            <use xlink:href="#chat" href="#chat"></use>
+                        </svg>
+                    </div>
+                    <div class="info-icon">
+                        <svg>
+                            <use xlink:href="#info" href="#info"></use>
+                        </svg>
+                    </div>
+                </div> -->
+            </div>
+            <div class="videos-content">
+                <div class="video-content-top">
+                    <div class="video-main custom-height display-flex" [ngClass]="{ bodybg : !_sharedService.navShow}">
+
+					 <div class="router_view">
+					 <router-outlet></router-outlet>
+					 </div>
+                   <img src="assets/images/WaterMark.png" class="transparent_bg">
+				   <img *ngIf="preview" src="assets/images/shiksha-watermark.svg" class="preview_button">
+
+                    </div>
+
+
+
+                    <!-- <div class="videos-list-container" style="display:none">
+                        <ul class="videos-list">
+                            <li class="video-item">
+                                <div class="video-item-header">Activity 1</div>
+                                <div class="video-item-status">In-progress</div>
+                                <div class="video-item-image-section">
+                                    <img class="video-item-image" src="../assets/images/video-item-img.png" />
+                                    <div class="video-item-time">17:00</div>
+                                </div>
+                            </li>
+                            <li class="video-item">
+                                <div class="video-item-header">Activity 1</div>
+                                <div class="video-item-status">In-progress</div>
+                                <div class="video-item-image-section">
+                                    <img class="video-item-image" src="../assets/images/video-item-img.png" />
+                                    <div class="video-item-time">17:00</div>
+                                </div>
+                            </li>
+                            <li class="video-item">
+                                <div class="video-item-header">Activity 1</div>
+                                <div class="video-item-status">In-progress</div>
+                                <div class="video-item-image-section">
+                                    <img class="video-item-image" src="../assets/images/video-item-img.png" />
+                                    <div class="video-item-time">17:00</div>
+                                </div>
+                            </li>
+                            <li class="video-item">
+                                <div class="video-item-header">Activity 1</div>
+                                <div class="video-item-status">In-progress</div>
+                                <div class="video-item-image-section">
+                                    <img class="video-item-image" src="../assets/images/video-item-img.png" />
+                                    <div class="video-item-time">17:00</div>
+                                </div>
+                            </li>
+                            <li class="video-item">
+                                <div class="video-item-header">Activity 1</div>
+                                <div class="video-item-status">In-progress</div>
+                                <div class="video-item-image-section">
+                                    <img class="video-item-image" src="../assets/images/video-item-img.png" />
+                                    <div class="video-item-time">17:00</div>
+                                </div>
+                            </li>
+                            <li class="video-item">
+                                <div class="video-item-header">Activity 1</div>
+                                <div class="video-item-status">In-progress</div>
+                                <div class="video-item-image-section">
+                                    <img class="video-item-image" src="../assets/images/video-item-img.png" />
+                                    <div class="video-item-time">17:00</div>
+                                </div>
+                            </li>
+                            <li class="video-item">
+                                <div class="video-item-header">Activity 1</div>
+                                <div class="video-item-status">In-progress</div>
+                                <div class="video-item-image-section">
+                                    <img class="video-item-image" src="../assets/images/video-item-img.png" />
+                                    <div class="video-item-time">17:00</div>
+                                </div>
+                            </li>
+                            <li class="video-item">
+                                <div class="video-item-header">Activity 1</div>
+                                <div class="video-item-status">In-progress</div>
+                                <div class="video-item-image-section">
+                                    <img class="video-item-image" src="../assets/images/video-item-img.png" />
+                                    <div class="video-item-time">17:00</div>
+                                </div>
+                            </li>
+                            <li class="video-item">
+                                <div class="video-item-header">Activity 1</div>
+                                <div class="video-item-status">In-progress</div>
+                                <div class="video-item-image-section">
+                                    <img class="video-item-image" src="../assets/images/video-item-img.png" />
+                                    <div class="video-item-time">17:00</div>
+                                </div>
+                            </li>
+                            <li class="video-item">
+                                <div class="video-item-header">Activity 1</div>
+                                <div class="video-item-status">In-progress</div>
+                                <div class="video-item-image-section">
+                                    <img class="video-item-image" src="../assets/images/video-item-img.png" />
+                                    <div class="video-item-time">17:00</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div> -->
+                </div>
+                <div class="video-controls-section">
+                    <!-- <div class="play-icon" id="Layer">
+                         <img id="playpause" src="assets/images/pause-icon.gif">
+                    </div> -->
+
+					<div class="play-icon" id="Layer" (click)="sendValueshome()">
+										 <svg *ngIf="_sharedService.navShow">
+											 <use xlink:href="#pause" href="#pause" id="playpause1"></use>
+										 </svg>
+					</div>
+                    <!-- <div class="seek-bar">
+                        <div class="seek-bar-holder"></div>
+                    </div> -->
+
+                    <div *ngIf="_sharedService.navShow" class="seek-bar">
+                      <!-- <span id="curtimetext">00:00</span> -->
+        							<input name="foo"  id="seek-bar" type="range" min="0" max="100" value="0" step="1"/>
+									<output for="foo" onforminput="value = foo.value;"></output>
+									<progress value="0" max="100"></progress>
+                  <progress id="max-progress" value="0" max="100"></progress>
+
+        			</div>
+
+                    <!-- <div class="main-video-time left" id="curtimetext">{{_sharedService.curmins:_sharedService.cursecs}}</div> -->
+                     <div *ngIf="_sharedService.navShow" class="main-video-time left" id="durtimetext">{{_sharedService.durmins}}:{{_sharedService.dursecs}}</div>
+					 <div *ngIf="!_sharedService.navShow" class="empty"></div>
+
+                    <label *ngIf="_sharedService.newjson.files1.length > 1 && _sharedService.newjson.playerPreview== false" class="autoplay-checkbox checkbox">
+
+                        <span>Autoplay {{autoplay_text}} </span>
+
+
+                         <!--<div  class="autoplay-toggler toggler"></div>-->
+                    </label>
+					<input *ngIf="_sharedService.newjson.files1.length > 1 && _sharedService.newjson.playerPreview== false" (click)="toggleCheck()" type="checkbox" checked style="margin-left: 1%;"/>
+                    
+					
+					<div class="volume-holder">
+					
+                        <div class="volume-icon">
+						<input type="range" id="volume-bar" min="0" max="1" step="0.1" value="1"/>
+                            <svg>
+                            <use xlink:href="#volume" href="#volume" id="inputid"></use>
+                            </svg>
+							
+                        </div>
+                    </div>
+
+                    <!-- <div class="full-screen-icon">
+                        <svg>
+                            <use xlink:href="#full-screen" href="#full-screen"></use>
+                        </svg>
+                    </div> -->
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

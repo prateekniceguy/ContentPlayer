@@ -1,0 +1,195 @@
+
+import {Component , OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import 'jquery';
+declare var $: any;
+import {ListComponent} from '../list/list.component';
+import {PlayComponent} from '../play/play.component';
+import {LoadComponent} from '../load/load.component';
+import {Load1Component} from '../load1/load1.component';
+import {Load2Component} from '../load2/load2.component';
+import {ActivityComponent} from '../activity/activity.component';
+import {ActivitydupComponent} from '../activitydup/activitydup.component';
+import {AboutComponent} from '../about/about.component';
+import {TemplatetwoComponent} from '../templatetwo/templatetwo.component';
+import {TemplatetwodupComponent} from '../templatetwodup/templatetwodup.component';
+import {TemplatenineComponent} from '../templatenine/templatenine.component';
+import {TemplateninedupComponent} from '../templateninedup/templateninedup.component';
+import {TemplateoneComponent} from '../templateone/templateone.component';
+import {TemplatedupComponent} from '../templateonedup/templateonedup.component';
+import {TemplatethreeComponent} from '../template3/template3.component';
+import {TemplatethreedupComponent} from '../template3dup/template3dup.component';
+import {SharedService} from '../shared.service';
+
+@Component({
+selector: 'my-home',
+template: require('./home.component.html'),
+styles: [require('./home.component.css')],
+directives : [ListComponent,PlayComponent,LoadComponent,Load1Component,Load2Component,TemplatethreeComponent,TemplatethreedupComponent,TemplatenineComponent,TemplateninedupComponent,ActivitydupComponent,ActivityComponent,AboutComponent,TemplatetwoComponent,TemplatetwodupComponent,TemplatedupComponent,TemplateoneComponent]
+})
+export class HomeComponent implements OnInit  {
+
+ constructor(private route: ActivatedRoute, private _sharedService: SharedService) {
+
+ }
+
+     id: number;
+    e:any;
+    flag=0;
+    //played = true;
+	autoplay_text="Off";
+
+
+  preview=this._sharedService.preview_mode;
+  toggleCheck(){
+       if(this._sharedService.autoplay_var){
+       this._sharedService.autoplay_var=0;
+	   this.autoplay_text="Off";
+       console.log('Data sent',this._sharedService.autoplay_var);
+       }
+       else {
+       this._sharedService.autoplay_var=1;
+	   this.autoplay_text="On";
+       console.log('Data sent',this._sharedService.autoplay_var);
+       }
+       }
+
+      sendValueshome(): void {
+
+      this.e = new Date();
+    if(this.flag==0){
+      this._sharedService.playTime(this.e.getTime());
+      console.log('Data sent-------',this._sharedService.play);
+
+      this.flag=1;
+
+      }
+    else{
+      this._sharedService.pauseTime(this.e.getTime());
+
+      console.log('Data sent>>>=------',this._sharedService.pause);
+
+
+      this.flag=0;
+      this._sharedService.final_difference_time((this._sharedService.pause[this._sharedService.pause.length-1])-(this._sharedService.play[this._sharedService.play.length-1]));
+      console.log('Data sent final>>---------',this._sharedService.final_difference);
+      this._sharedService.badlo();
+      }
+        }
+    ngOnInit() {
+
+
+  var abj: any = this;
+                    var countplay=1;
+                    var countpause=1;
+                    var diff;
+                    var p=0;
+                    var o;
+                    var play = [];
+                    var pause = [];
+                    var difference = [];
+                    var myArr = [play,pause,difference];
+
+                  this.route.params.subscribe(params => {
+                      this.id = +params['id']; // (+) converts string 'id' to a number
+                  });
+                    // $ will be availble
+                    //console.log("jquery is running...",$);
+                    $("#volume-bar").hide();
+                    $("#inputid").on("click", function(){
+                   // console.log("volume not change");
+                    $("#volume-bar").toggle();
+                    });
+
+                //Hide button pannel
+                $(".callbtn .openbtn").on("click", function () {
+                    $(".callbtn").hide();
+                });
+
+                //Switching play/pause image on the player
+                $("#Layer").on("click", function (e) {
+
+                    var myVideo = $("#video")[0];
+                    if (myVideo.paused) {
+
+                        myVideo.play();
+						$("#playpause1").attr("xlink:href", "#pause");
+						$("#playpause1").attr("href", "#pause");
+                        e = new Date();
+                        p = e.getTime();
+                        play.push(p);
+
+                        console.log("play array>>>>",play);
+						             abj._sharedService.playclick();
+                        countplay++;
+
+                    } else {
+
+                        myVideo.pause();
+						$("#playpause1").attr("xlink:href", "#play");
+                        $("#playpause1").attr("href", "#play");
+
+                          e = new Date();
+                          o = e.getTime();
+                          pause.push(o);
+                          console.log("pause array>>>>",pause);
+
+						  abj._sharedService.pauseclick(abj.e.getTime(),myVideo.currentTime);
+                          countpause++;
+                            diff=o-p;
+                            difference.push(diff);
+                            console.log("difference array>>>>>",difference)
+                    //myArr[0].push(pause);
+                    //myArr[1].push(play);
+                    //myArr[2].push(difference);
+                      console.log("final>>>>>>>>>",myArr)
+                    }
+                });
+//
+
+
+
+
+
+
+//calculate video current time
+
+
+
+                        var value=abj._sharedService.value_time;
+                        var cursecs=abj._sharedService.cursecs;
+                        var dursecs=abj._sharedService.dursecs;
+                        var curmins=abj._sharedService.curmins;
+                        var durmins=abj._sharedService.durmins;
+                       //abj._sharedService.segmentChanged(durmins,dursecs);
+
+                        if(cursecs < 10){ cursecs = Number("0"+cursecs); }
+                        if(dursecs < 10){ dursecs = Number("0"+dursecs); }
+                        if(curmins < 10){ curmins = Number("0"+curmins); }
+                        if(durmins < 10){ durmins = Number("0"+durmins); }
+
+						   $("#seek-bar").val(value);
+
+                    //    var curtimetext = document.getElementById("curtimetext");
+                    //    var durtimetext = document.getElementById("durtimetext");
+                    //    curtimetext.innerHTML = curmins+":"+cursecs;
+                    //    durtimetext.innerHTML = durmins+":"+dursecs;
+
+
+
+
+
+
+                //Volume bar to control video volume
+                $("#volume-bar").on("change", function () {
+                console.log("volumechange");
+                    var myVideo = $("#video")[0];
+                    myVideo.volume = $(this).val();
+                });
+
+
+
+    }
+
+
+}

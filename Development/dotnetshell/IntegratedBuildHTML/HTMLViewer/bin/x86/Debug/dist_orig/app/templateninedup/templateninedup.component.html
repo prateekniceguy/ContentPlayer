@@ -1,0 +1,62 @@
+<div id="container" class="container-fluid">
+  <div class="row-fluid">
+  <!--<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 audio-block">
+    <img class="pull-right btn no-padding" src="assets/images/audio-btn.svg" width="10%"/>
+   <audio #audioEl src="{{optionslist.sound}}"></audio>
+  </div>-->
+  
+ <div>
+	<audio #narrator_temp9 src="{{optionslist_main.sound}}" autoplay="autoplay"></audio>
+</div>
+
+	<!--<div *ngFor="let opts of myoption_duplicate">
+	<audio #narrator_voice src="{{opts.narrator}}" autoplay="autoplay"></audio>
+	</div>-->
+
+
+<div class="col-md-12 col-sm-12 col-xs-12 text-center  w3-container w3-center w3-animate-zoom" >
+    <!--<div *ngFor="let ques of myoption_duplicate" class="ques_div">-->
+	<div class="ques_div">
+	<imgres id="div1" [style.display]="!showques ? 'block' : 'none'" [responsiveImg]="question.image" class="ques_img" [useSingleimage] = true [width] = "question.width" [height]= "question.height"></imgres>
+<imgres id="div2" [style.display]="showques ? 'block' : 'none'" id="div1" [responsiveImg]="question.img_answer" class="ques_img" [useSingleimage] = true [width] = "question.width" [height]= "question.height"></imgres>
+	</div>
+
+
+		<div [@flyInOut] class="text-center w3-container w3-center w3-animate-zoom margin_top_optioin_div set_pos_opt disp-inblock pos-rel" [ngClass]="{'disable-click-events': answered}">
+	
+		  <img #fireworks class="class3" src="assets/images/animated-fireworks-image-0051.gif">
+			  <!--<span *ngFor="let opts of myoption;let idx = index;"  (click)="checkAnswer(opts,$event,idx)">
+				<img (click)="stopAllSounds($event)" class="btn btn1 no-padding" id ="{{'optimage'+idx}}" src="{{opts.imgsrc}}" on-mouseover="onHover(opts)" on-mouseout="onHoverout(opts)"/>
+			  </span>-->
+			  <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4" *ngFor="let opts of myoption;let idx = index;">
+			<imgres (click)="checkAnswer(opts,$event,idx)"   [style.display]="!showHover[idx] ? 'block' : 'none'" [responsiveImg]="opts.imgsrc" class=" btn1 no-padding" id ="{{'optimage'+idx}}" [useSingleimage] = true [width] = 395 [height]= 157 on-mouseover="onHover(opts,idx)" ></imgres>
+			<imgres (click)="checkAnswer(opts,$event,idx)"   [style.display]="showHover[idx] ? 'block' : 'none'" [responsiveImg]="opts.imgsrc_hover" class=" btn1 no-padding" [useSingleimage] = true [width] = 395 [height]= 157  on-mouseout="onHoverout(opts,idx)"></imgres>
+			 </span>
+	
+    </div>
+
+
+</div>
+<!--<img id="myImg" src="img_fjords.jpg" alt="Trolltunga, Norway" width="300" height="200"> -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal" >
+  <div id="modalContent" class="modal-content">
+    <span #myClose class="close" (click)="closeModal()">
+       <img src={{feedback.wrong_ans_popup.image_cross}}>
+    </span>
+    <img id="modal-img" src="">
+  </div>
+</div>
+
+  <div class="col-md-12 col-sm-12 col-xs-12 nav-block margin_top_nav_btn_div">
+    <div class="col-md-8 col-md-offset-2">
+      <img class="btn no-padding width_nav_btn" src="assets/images/peechay-btn.svg" [ngClass]="{'disable-click': currentIdx == 0}" (click)="previous()"/>
+	
+     <img #myDiv class="pull-right btn no-padding aagey-badein width_nav_btn" src="assets/images/aagay-btn.svg" [ngClass]= "{ 'blink_me' :blink, 'disable-button' :(currentIdx == optionslist.length-1 && isLastActivity)}" (click)="next()"/>
+    </div>
+  </div>
+  <imgres *ngIf="question.text!='false'" [responsiveImg]="question.text" class="pull-right no-padding aagey-badein extra" [useSingleimage] = true [width] = 350 [height]= 125></imgres>
+  </div>
+
+</div>

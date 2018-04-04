@@ -1,0 +1,333 @@
+html, body{
+  height:100%;
+  margin:0;
+  padding:0
+}
+body{background:url(http://localhost:8080/content00/1920x1080/Png/BG.jpg) no-repeat center top !important;}
+@font-face {
+    font-family: "Kruti-Dev";
+    src: url(assets/fonts/K010.ttf);
+}
+@font-face {
+    font-family: "Gul2-Normal";
+    src: url(assets/fonts/GUL-2N.ttf);
+}
+.no-padding{padding:0 !important;}
+.pos-rel{position:relative;}
+.disp-inblock{display:inline-block !important;}
+.btn.focus, .btn:focus, .btn:hover {outline: none !important;}
+.btn:active {box-shadow: none !important;}
+/*........................*/
+@media (min-height: 600px) and (max-height: 768px) {
+
+ .container-fluid {
+    height: 500px!important;
+  }
+}
+@media (min-height: 769px) and (max-height: 900px) {
+
+ .container-fluid {
+    height: 600px!important;
+  }
+}
+@media (min-height: 900px) and (max-height: 1080px) {
+
+ .container-fluid {
+    height: 800px!important;
+  }
+}
+.container-fluid{
+  height:100%;
+  width: 100%;
+  display:table;
+  padding: 1.7%;
+  /* background:url(http://localhost:8080/content00/1920x1080/Png/BG.jpg) no-repeat center top!important; */
+}
+.row-fluid {
+  height: 100%;
+  display:table-cell;
+  vertical-align: middle;
+}
+/* .options-block{margin:1% 0% 2%;} */
+.options-block span{
+  width: 222px;
+  display: inline-table;
+}
+/* .nav-block .btn {
+  width:20%;
+} */
+
+.btn1{
+  /*-webkit-transition: all 2s ease; -moz-transition: all 2s ease; -ms-transition: all 2s ease; transition: all 2s ease;*/
+  height: 100%;
+  width: 100%;
+}
+.audio-block{
+  text-align: center;
+}
+
+.aagey-badein {
+  position:relative;
+  z-index:1;
+}
+
+#myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)}
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+/*@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+}
+
+@media (max-width:1024px) {
+  .tick-true,.tick-false{top:110% !important;}
+}
+@media (max-width:961px) {
+  .options-block .btn{  width:80% !important;}
+  .margin-lr{margin:0;}
+
+  .audio-block img{width:10% !important;}
+  .tick-true,.tick-false{width:25%; left:38%;}
+  >>> .preview_button {
+      left: -5% !important;
+  }
+
+}*/
+/*@media (max-width:649px) {
+  .full-width{width:100% !important;}
+  .margin-lr{margin:0;}
+  .audio-block img{width:12% !important;}
+  .tick-true,.tick-false{left:42%; top:110% !important;}
+  >>> .preview_button {
+      left: -20% !important;
+  }
+
+}*/
+/*@media (min-width: 901px) and (max-width: 961px) {
+  .options-block span {
+    width: 204px;
+  }
+}
+@media (min-width: 669px) and (max-width: 900px) {
+  .options-block span {
+    width: 148px;
+  }
+}
+@media (max-width: 669px) {
+  .options-block span {
+    width: 130px;
+  }
+}*/
+/*@media (max-height: 600px) {
+   .options-block {
+    margin: 2% 0% 10%;
+  }
+  .container-fluid {
+    padding: 2.7% 0;
+  }
+  .btn1 {
+      width: 33% !important;
+  }
+.tick-true, .tick-false {
+    left: 44%;
+    width: 15%;
+  }
+}*/
+/*@media (min-height: 601px) and (max-height: 650px) {
+   .options-block {
+    margin: 0 0% 7%;
+    }
+  .preview_button {
+      left: -20%;
+  }
+  .btn1 {
+      width: 53% !important;
+  }
+    .tick-true, .tick-false {
+      top:108% !important;
+    left: 44%;
+    width: 15%;
+  }
+}*/
+/*@media (min-height: 651px) and (max-height: 766px) {
+    .options-block {
+    margin: 5% 0% 6%;
+    }
+  .btn1 {
+      width: 53% !important;
+  }
+   .tick-true, .tick-false {
+      top:108% !important;
+    left: 44%;
+    width: 15%;
+  }
+}*/
+/*@media (max-height: 834px) {
+  .preview_button {
+      left: 10%;
+  }
+  .btn1 {
+      width: 73%;
+  }
+}*/
+.speaker-pos{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.class3{
+
+        display:none;
+}
+.class4{
+        display:block;
+        z-index :1000000
+}
+/* The Modal (background) */
+#modal-img{
+    margin-left: 29%;
+    margin-top: 24%;
+    margin-bottom: 10%;
+    width: 40%;
+}
+.modal {
+
+    display: none;
+    position: fixed;
+    z-index: 100;
+    padding-top: 5%;
+    padding-left: 10%;
+    left: 0;
+    top: 0;
+    /*width: 89%;
+    height: 95%;*/
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.9);
+}
+/* Modal Content (image) */
+
+.modal-content{
+  /*background:url(http://localhost:8080/content00/global/PopUp.png) no-repeat center top;*/
+    margin-left: 14%;
+    display: block;
+    width: 60%;
+  height:70%;
+    max-width: 65%;
+}
+
+
+/* Caption of Modal Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+/* Add Animation */
+.modal-content, #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)}
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  z-index: 1000;
+  opacity: 1;
+  width:25%
+  /*margin-top: 11.5%;
+    margin-right: 21%;*/
+}
+.close img {width:100%;}
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+.animation-shake {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+.blink_me {
+  animation: blinker 2s linear infinite;
+}
+@keyframes blinker {
+  50% { opacity: 0; }
+}
+.disable-click{
+	pointer-events:none;
+	opacity:0.5;
+}
+.disable-button{
+	visibility: hidden;
+}
+.disable-click-events{
+  pointer-events:none;
+}
+.panel_img{
+  /* margin-left:-60px; */
+  width: 100%;
+  height:100%;
+  margin-left: 32%;
+}

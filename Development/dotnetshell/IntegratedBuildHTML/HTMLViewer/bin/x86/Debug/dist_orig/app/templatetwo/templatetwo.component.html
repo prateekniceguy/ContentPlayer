@@ -1,0 +1,48 @@
+<div id="container" class="container-fluid">
+  <div class="row-fluid">
+
+<!-- <div class="col-md-12 col-sm-12 col-xs-12 panel-1">
+    <img [responsiveImg]="question" src={{question.imgsrc}} class="panel_img"/>
+</div> -->
+<div class="col-md-12 col-sm-12 col-xs-12" [ngClass]="{'disable-click-events': answered}">
+  <!-- <img class="panel_img" src="{{speaker.imgsrc}}"  (click)="playSound_Speaker(audioEl)"/> -->
+  <imgres id="div1"  [responsiveImg]="speaker.imgsrc" class="panel_img" [useSingleimage] = true [width] = "speaker.width" [height]= "speaker.height" (click)="playSound_Speaker(audioEl)"></imgres>
+<audio #audioEl src="{{speaker.sound}}"></audio>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 text-center options-block w3-container w3-center w3-animate-zoom" [ngClass]="{'disable-click-events': answered}">
+    <div [@flyInOut] class="disp-inblock pos-rel">
+      <img #fireworks class="class3" src="assets/images/animated-fireworks-image-0051.gif">
+          <span *ngFor="let opts of myoption;let idx = index;"  (click)="checkAnswer(opts,$event,idx)">
+          <!-- <img (click)="stopAllSounds($event)" id="myImg" class="btn btn1 no-padding" id ="{{'optimage'+idx}}" src="{{opts.imgsrc}}" on-mouseover="onHover(opts)" on-mouseout="onHoverout(opts)" [responsiveImg]="opts"/> -->
+          <imgres (click)="stopAllSounds($event)"  [style.display]="!showHover[idx] ? 'block' : 'none'" [responsiveImg]="opts.imgsrc" class="btn btn1 no-padding" id ="{{'optimage'+idx}}" [useSingleimage] = true [width] = 422 [height]= 181 on-mouseover="onHover(opts,idx)" ></imgres>
+  			<imgres (click)="stopAllSounds($event)"  [style.display]="showHover[idx] ? 'block' : 'none'" [responsiveImg]="opts.img_hover" class="btn btn1 no-padding" [useSingleimage] = true [width] = 422 [height]= 181  on-mouseout="onHoverout(opts,idx)"></imgres>
+        </span>
+  </div>
+</div>
+
+
+  <div>
+  <audio #narrator_voice src="{{optionslist_main.narrator_voice}}" autoplay="autoplay"></audio>
+  </div>
+
+  <div id="myModal" class="modal" >
+  <div id="modalContent" class="modal-content">
+    <span #myClose class="close" (click)="closeModal()">
+       <img src={{feedback.wrong_ans_popup.image_cross}}>
+    </span>
+    <img id="modal-img" src="">
+  </div>
+</div>
+
+  <div class="col-md-12 col-sm-12 col-xs-12 nav-block">
+    <div class="col-md-8 col-md-offset-2">
+      <img class="btn no-padding" src="assets/images/peechay-btn.svg" [ngClass]="{'disable-click': currentIdx == 0}" (click)="previous()"/>
+      <img #myDiv class="pull-right btn no-padding aagey-badein" src="assets/images/aagay-btn.svg" [ngClass]= "{ 'blink_me' :blink, 'disable-button' :(currentIdx == optionslist.length-1 && isLastActivity)}" (click)="next()"/>
+    </div>
+  </div>
+
+
+  </div>
+
+</div>

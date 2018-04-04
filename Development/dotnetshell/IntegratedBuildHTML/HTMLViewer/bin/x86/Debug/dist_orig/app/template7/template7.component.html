@@ -1,0 +1,47 @@
+<div id="container" class="container-fluid multi-choice">
+  <div class="row-fluid">
+  <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 audio-block">
+    <!-- <img class="pull-right btn no-padding" src="assets/images/audio-btn.svg" width="8%" (click)="clickAudi()"/> -->
+    <!-- <audio src="assets/images/kriyakalap-mix.mp3" autoplay="autoplay"></audio> -->
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 text-center w3-container w3-center w3-animate-zoom" height="30" width="20">
+      <div *ngFor="let ques of myoption_duplicate">
+        <img src="{{ques.ques}}" alt="Smileyface" class="quebox">
+    </div>
+      </div>
+  </div>
+  <div class="row" [ngClass]="{'disable-div': (correctAnswersCount==3)}">
+  <div class="col-md-12 col-sm-12 col-xs-12 text-center options-block w3-container w3-center w3-animate-zoom">
+    <div class="disp-inblock pos-rel full-width correct" *ngFor="let opts of myoption; #idx = index"
+    [ngClass]= "{'disable-click': (opts.class =='tick-true' && opts.hideElement)}" [ngClass]="{'disable-click': _sharedService.disableClick==1}">
+
+        <span (click)="selected(opts)"  on-mouseover='focusImg(opts, idx)'  on-mouseout='unfocusImg(opts)'>
+          <img  class="btn btn1 no-padding options" src="{{opts.imgsrc}}" />
+             <br>
+             <img class="{{opts.class}} w3-animate-fading" src="{{opts.tick}}" [style.display]="opts.hideElement?'inherit':'none'" />
+        </span>
+    </div>
+  </div>
+  </div>
+
+<div id="myModal" class="modal" >
+  <div id="modalContent" class="modal-content">
+    <span #myClose class="close" (click)="close()" *ngFor="let opts of myoption">
+      <img src={{opts.close_button}}>
+    </span>
+    <img id="img01" src="">
+  </div>
+</div>
+
+
+  <div class="col-md-12 col-sm-12 col-xs-12 nav-block">
+    <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2" >
+      <img class="btn no-padding" src="assets/images/peechay-btn.svg" width="20%" (click)="previous()" [ngClass]="{'disable-click': currentIdx == 0}"/>
+      <img #myDiv [ngClass]="{'disable-click': (correctAnswersCount<3 && disableNextButtonSwitch)}" (click)="clicked0($event)" class="pull-right btn no-padding aagey-badein" src="assets/images/aagay-btn.svg" [ngClass]="{'disable-button': (currentIdx == data.length-1 && isLastActivity)}" width="20%"/>
+    </div>
+  </div>
+
+  </div>
+
+</div>

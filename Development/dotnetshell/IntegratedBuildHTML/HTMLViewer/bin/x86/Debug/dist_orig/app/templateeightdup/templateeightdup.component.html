@@ -1,0 +1,43 @@
+<div id="container" class="container-fluid">
+  <div class="row-fluid">
+  <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 audio-block">
+  <!--  <img class="pull-right btn no-padding" src="assets/images/audio-btn.svg" width="10%" (click)="playMusic(audioEl)" />
+    <audio #audioEl src="{{myoption_duplicate[0].path}}"></audio> -->
+  </div>
+
+	<div *ngFor="let opts of myoption_duplicate">
+	<audio #narrator_voice src="{{opts.narrator}}" autoplay="autoplay"></audio>
+	</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 text-center options-block w3-container w3-center w3-animate-zoom" >
+    <div class="disp-inblock pos-rel correct" *ngFor="let opts of myoption" [ngClass]="{'disable-click': _sharedService.disableClick==1}">
+        <span (click)="bool ? selected(opts) : null">
+          <img id="myImg" (click)="doSomething($event)" class="btn btn1 no-padding options shake" src="{{opts.imgsrc}}" on-mouseover="onHover(opts)" on-mouseout="onHoverout(opts)"/><br />
+          <img class="{{opts.class}} w3-animate-fading" src="{{opts.tick}}" width="30%" [style.display]="opts.hideElement?'inherit':'none'" />
+        </span>
+    </div>
+
+
+</div>
+<!--<img id="myImg" src="img_fjords.jpg" alt="Trolltunga, Norway" width="300" height="200"> -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal" >
+  <div id="modalContent" class="modal-content">
+    <span #myClose class="close" (click)="close()" *ngFor="let opts of myoption">
+      <img src={{opts.close_button}}>
+    </span>
+    <img id="img01" src="">
+  </div>
+</div>
+
+  <div class="col-md-12 col-sm-12 col-xs-12 nav-block">
+    <div class="col-md-8 col-md-offset-2">
+      <img class="btn no-padding" src="assets/images/peechay-btn.svg" (click)="previous()" [ngClass]="{'disable-click': currentIdx == 0}"/>
+      <img #myDiv (click)="clicked0($event)" class="pull-right btn no-padding aagey-badein" src="assets/images/aagay-btn.svg" [ngClass]="{'disable-button': (currentIdx == optionslist.length-1 && isLastActivity)}" (click)="next()"/>
+    </div>
+  </div>
+
+  </div>
+
+</div>

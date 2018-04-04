@@ -1,0 +1,65 @@
+body{
+	background:url(../images/bg_main.jpg) no-repeat 0 0 fixed;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; 
+}
+@font-face {
+    font-family: "Kruti-Dev";
+    src: url(../fonts/K010.ttf);
+}
+@font-face {
+    font-family: "Gul2-Normal";
+    src: url(../fonts/GUL-2N.ttf);
+}
+body,.subject-img{display:none;}
+.opt-ans{opacity:0;}
+.clear{clear:both;}
+.margin10{margin-bottom:10px;}
+.disp-ib{
+	display:inline-block;
+	vertical-align:top;
+}
+/*........................*/
+#container{
+	margin:23% auto 10%;
+	position:relative;
+}
+.options-block{margin:3% 0 0 5%;}
+.opt-ans{
+	vertical-align:middle; 
+	position:relative;
+	margin:10px 0 0;
+	/*display:inline-block;*/
+}
+.opt-ans .option{
+	font-family:Gul2-Normal;
+	font-size:4.5em;
+	font-weight:200;
+	width:184px;
+	display: table-cell;
+	padding:17px 0 0;
+	line-height:1;
+	cursor:pointer;
+	background:url(../images/opt_bg_default.png) no-repeat 0 0;
+}
+.tick_true,
+.tick_false{display:none; position:absolute; right:-42%; top:-275%;}
+.subject-img{
+	border:solid 8px #fff;
+	box-shadow: 2px 2px 2px #888888;
+	border-radius:13px;
+}
+
+@media (max-width:961px) {.options-block{margin:4% 0 0 5%;}}
+@media (max-width:768px) {
+.options-block{margin:5% 0 0 3%;}
+.tick_true,
+.tick_false{right:-33%;}
+}
+@media (max-width:400px) {
+.tick_true,
+.tick_false{width:28%; top:-247%;}
+}
+

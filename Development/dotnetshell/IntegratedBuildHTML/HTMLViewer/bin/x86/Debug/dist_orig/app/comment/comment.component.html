@@ -1,0 +1,36 @@
+
+          <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#myModal">Comments</button>
+
+              <div class="modal fade" id="myModal" role="dialog">
+               <div class="modal-dialog">
+
+                 <!-- Modal content-->
+                 <div class="modal-content" style="background: #fff1c2;">
+                   <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     <h4 class="modal-title">Comments</h4>
+                   </div>
+                   <div class="modal-body">
+
+                                <div class="container">
+                                <div class="row">
+                                 <div class="col-md-6">
+                                             <div class="status-upload">
+                                               <form>
+                                                 <textarea placeholder="What are you doing right now?" id="str" [(ngModel)]="str"  [ngModelOptions]="{standalone: true}"></textarea>
+
+                                               </form>
+                                             </div>
+                                  </div>
+
+                                 </div>
+                                </div>
+
+                   </div>
+                   <div class="modal-footer">
+                       <button type="submit" class="btn btn-success green" (click)="sendValues()" >Send</button>
+                   </div>
+                 </div>
+
+               </div>
+             </div>
