@@ -38,7 +38,7 @@ namespace HTMLViewer
         //$change here
         public void eventFromPlayer(string sjson)
         {
-            //msgBoxDisplay(sjson);
+            msgBoxDisplay(sjson);
             if (sjson.IndexOf("play") > 0)
             {
                 //msgBoxDisplay(sjson);

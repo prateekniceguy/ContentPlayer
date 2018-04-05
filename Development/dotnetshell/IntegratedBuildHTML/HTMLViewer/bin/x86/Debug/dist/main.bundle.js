@@ -242,9 +242,11 @@ var VideoComponent = /** @class */ (function () {
     VideoComponent.prototype.updatePlay = function (event) {
         if (this.isPlaying) {
             this.mainVideo.nativeElement.pause();
+            this.appModel.event = { 'action': 'pause', 'time': new Date().getTime(), 'currentPosition': this.currentVideoTime };
         }
         else {
             this.mainVideo.nativeElement.play();
+            this.appModel.event = { 'action': 'play' };
         }
         this.isPlaying = !this.isPlaying;
     };
@@ -266,14 +268,14 @@ var VideoComponent = /** @class */ (function () {
     });
     VideoComponent.prototype.updateHandler = function (event) {
         var duration = event.currentTarget.duration;
-        var current = event.currentTarget.currentTime;
-        var value = (100 / duration) * current;
+        this.currentVideoTime = event.currentTarget.currentTime;
+        var value = (100 / duration) * this.currentVideoTime;
         this.progressBarValue = value;
         console.log('VideoComponent: updateHandler value=', value, this.progressBarValue);
         /*this.sliderRef.setAttribute('value', value);
         this.sliderRef.refresh();*/
-        var curmins = Math.floor(current / 60);
-        var cursecs = Math.floor(current - curmins * 60);
+        var curmins = Math.floor(this.currentVideoTime / 60);
+        var cursecs = Math.floor(this.currentVideoTime - curmins * 60);
         var durmins = Math.floor(duration / 60);
         var dursecs = Math.floor(duration - durmins * 60);
         var ttime = dursecs + (durmins * 60);
@@ -373,6 +375,12 @@ var ApplicationmodelService = /** @class */ (function () {
     Object.defineProperty(ApplicationmodelService.prototype, "event", {
         set: function (value) {
             console.log('ApplicationmodelService: event - value=', value);
+            var data = {
+                'sessionId': this.initValues.sessionId,
+                'segmentId': this.initValues.files[this.currentSection].segmentId,
+                'event': value
+            };
+            this.dataHandler.sendData('eventFromPlayer', data);
         },
         enumerable: true,
         configurable: true
@@ -696,15 +704,20 @@ var DataloaderService = /** @class */ (function () {
         console.log('DataloaderService: constructor');
     }
     DataloaderService.prototype.loadData = function (data, success, failure) {
+        this.success = success;
+        this.failure = failure;
         // throw new Error('Method not implemented.');
         this.initValues = new __WEBPACK_IMPORTED_MODULE_0__initdatareader__["a" /* InitDataReader */]().read(JSON.parse(data.data));
-        this.dataLoadedSuccess(success);
+        this.dataLoadedSuccess();
         console.log('DataloaderService: loadData', this.initValues);
     };
-    DataloaderService.prototype.dataLoadedSuccess = function (success) {
-        success(this.initValues);
+    DataloaderService.prototype.sendData = function (id, data) {
+        console.warn('DataloaderService: sendData - id=', id, 'data=', data);
     };
-    DataloaderService.prototype.dataLoadedFailure = function (failure) {
+    DataloaderService.prototype.dataLoadedSuccess = function () {
+        this.success(this.initValues);
+    };
+    DataloaderService.prototype.dataLoadedFailure = function () {
         throw new Error('Method not implemented.');
     };
     DataloaderService = __decorate([
@@ -723,8 +736,9 @@ var DataloaderService = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExternalcommunicationService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dharapvj_ngx_signalr__ = __webpack_require__("../../../../@dharapvj/ngx-signalr/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__initdatareader__ = __webpack_require__("../../../../../src/app/model/initdatareader.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dharapvj_ngx_signalr__ = __webpack_require__("../../../../@dharapvj/ngx-signalr/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -736,12 +750,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var ExternalcommunicationService = /** @class */ (function () {
     function ExternalcommunicationService(signalInstance) {
         this.proxyName = 'HTMLPlayerHub';
         console.log('ExternalcommunicationService: constructor');
         this.signalInstance = signalInstance;
-        this.connect();
+        // this.connect();
         // Constructor initialization
         /*this.connectionEstablished = new EventEmitter<Boolean>();// existing code to delete
         this.messageReceived = new EventEmitter<any>();
@@ -787,17 +802,21 @@ var ExternalcommunicationService = /** @class */ (function () {
         }
     };
     ExternalcommunicationService.prototype.connected = function () {
+        var _this = this;
         console.log('ExternalcommunicationService: connected');
         // create a listener object
-        var open = new __WEBPACK_IMPORTED_MODULE_1__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('open');
+        var open = new __WEBPACK_IMPORTED_MODULE_2__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('open');
         // register the listener
         this.connection.listen(open);
         // subscribe for incoming messages
         open.subscribe(function (value) {
             console.log('ExternalcommunicationService: connected - open=', value);
+            _this.initValues = new __WEBPACK_IMPORTED_MODULE_0__initdatareader__["a" /* InitDataReader */]().read(JSON.parse(value));
+            _this.dataLoadedSuccess();
+            console.log('DataloaderService: loadData', _this.initValues);
         });
         // create a listener object
-        var cmsPlayerPlay = new __WEBPACK_IMPORTED_MODULE_1__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('cmsPlayerPlay');
+        var cmsPlayerPlay = new __WEBPACK_IMPORTED_MODULE_2__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('cmsPlayerPlay');
         // register the listener
         this.connection.listen(cmsPlayerPlay);
         // subscribe for incoming messages
@@ -805,7 +824,7 @@ var ExternalcommunicationService = /** @class */ (function () {
             console.log('ExternalcommunicationService: connected - cmsPlayerPlay=', value);
         });
         // create a listener object
-        var cmsPlayerPause = new __WEBPACK_IMPORTED_MODULE_1__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('cmsPlayerPause');
+        var cmsPlayerPause = new __WEBPACK_IMPORTED_MODULE_2__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('cmsPlayerPause');
         // register the listener
         this.connection.listen(cmsPlayerPause);
         // subscribe for incoming messages
@@ -814,17 +833,22 @@ var ExternalcommunicationService = /** @class */ (function () {
         });
     };
     ExternalcommunicationService.prototype.loadData = function (data, success, failure) {
+        this.success = success;
+        this.failure = failure;
         this.connect();
     };
-    ExternalcommunicationService.prototype.dataLoadedSuccess = function (success) {
-        throw new Error('Method not implemented.');
+    ExternalcommunicationService.prototype.sendData = function (id, data) {
+        this.call(id, [JSON.stringify(data)]);
     };
-    ExternalcommunicationService.prototype.dataLoadedFailure = function (failure) {
+    ExternalcommunicationService.prototype.dataLoadedSuccess = function () {
+        this.success(this.initValues);
+    };
+    ExternalcommunicationService.prototype.dataLoadedFailure = function () {
         throw new Error('Method not implemented.');
     };
     ExternalcommunicationService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__dharapvj_ngx_signalr__["b" /* SignalR */]])
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__dharapvj_ngx_signalr__["b" /* SignalR */]])
     ], ExternalcommunicationService);
     return ExternalcommunicationService;
 }());

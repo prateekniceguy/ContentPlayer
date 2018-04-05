@@ -5136,3 +5136,56 @@
 [0404/224808:ERROR:mf_helpers.cc(12)] Error in dxva_video_decode_accelerator_win.cc on line 345
 [0404/225424:ERROR:mf_helpers.cc(12)] Error in dxva_video_decode_accelerator_win.cc on line 345
 [0404/225815:ERROR:mf_helpers.cc(12)] Error in dxva_video_decode_accelerator_win.cc on line 345
+[0405/125537:ERROR:mf_helpers.cc(12)] Error in dxva_video_decode_accelerator_win.cc on line 345
+[0405/190254:ERROR:mf_helpers.cc(12)] Error in dxva_video_decode_accelerator_win.cc on line 345
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/191615:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-0DA86CB8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224107:ERROR:mf_helpers.cc(12)] Error in dxva_video_decode_accelerator_win.cc on line 345
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224135:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-02BFC798]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0405/224235:ERROR:mf_helpers.cc(12)] Error in dxva_video_decode_accelerator_win.cc on line 345
+[0405/224236:ERROR:CONSOLE(1613)] "Uncaught (in promise) Error: Could not resolve node to reveal.", source: chrome-devtools://devtools/elements/elements_module.js (1613)
+[0405/233340:ERROR:mf_helpers.cc(12)] Error in dxva_video_decode_accelerator_win.cc on line 345

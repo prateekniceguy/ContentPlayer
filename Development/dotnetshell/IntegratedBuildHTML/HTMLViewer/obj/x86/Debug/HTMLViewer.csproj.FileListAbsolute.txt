@@ -2060,3 +2060,4 @@ E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\bin\x86\Debug\dist\scripts.bundle.js
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\bin\x86\Debug\dist\styles.bundle.js
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\bin\x86\Debug\dist\vendor.bundle.js
+E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\obj\x86\Debug\HTMLViewer.csprojResolveAssemblyReference.cache
