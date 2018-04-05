@@ -1,3 +1,5 @@
+import {InitDataReader} from './initdatareader';
+import {InitializationAPI} from './initializationapi';
 import {DataHandler} from './interfaces/dataHandler';
 import {Injectable, EventEmitter} from '@angular/core';
 import {SignalR, BroadcastEventListener} from '@dharapvj/ngx-signalr';
@@ -7,6 +9,9 @@ declare var $: any;
 @Injectable()
 export class ExternalcommunicationService implements DataHandler {
   private signalInstance: any;
+  private initValues: InitializationAPI;
+  private success;
+  private failure;
 
   private proxy: any;
   private proxyName: String = 'HTMLPlayerHub';
@@ -21,7 +26,8 @@ export class ExternalcommunicationService implements DataHandler {
 
     this.signalInstance = signalInstance;
 
-    this.connect();
+    // this.connect();
+
     // Constructor initialization
     /*this.connectionEstablished = new EventEmitter<Boolean>();// existing code to delete
     this.messageReceived = new EventEmitter<any>();
@@ -80,6 +86,9 @@ export class ExternalcommunicationService implements DataHandler {
     // subscribe for incoming messages
     open.subscribe((value: any) => {
       console.log('ExternalcommunicationService: connected - open=', value);
+      this.initValues = new InitDataReader().read(JSON.parse(value));
+      this.dataLoadedSuccess();
+      console.log('DataloaderService: loadData', this.initValues);
     });
 
     // create a listener object
@@ -104,14 +113,20 @@ export class ExternalcommunicationService implements DataHandler {
 
 
   loadData(data, success, failure) {
+    this.success = success;
+    this.failure = failure;
     this.connect();
   }
 
-  dataLoadedSuccess(success) {
-    throw new Error('Method not implemented.');
+  sendData(id: string, data: any) {
+    this.call(id, [JSON.stringify(data)]);
   }
 
-  dataLoadedFailure(failure) {
+  dataLoadedSuccess() {
+    this.success(this.initValues);
+  }
+
+  dataLoadedFailure() {
     throw new Error('Method not implemented.');
   }
 

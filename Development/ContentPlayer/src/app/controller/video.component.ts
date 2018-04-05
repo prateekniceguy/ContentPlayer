@@ -14,6 +14,7 @@ export class VideoComponent implements OnInit {
 
   private appModel: ApplicationmodelService;
 
+  private currentVideoTime;
   private duration;
   protected currentTime = 0;
   protected progressBarValue = 0;
@@ -54,8 +55,10 @@ export class VideoComponent implements OnInit {
   updatePlay(event) {
     if (this.isPlaying) {
       this.mainVideo.nativeElement.pause();
+      this.appModel.event = {'action': 'pause', 'time': new Date().getTime(), 'currentPosition': this.currentVideoTime};
     } else {
       this.mainVideo.nativeElement.play();
+      this.appModel.event = {'action': 'play'};
     }
     this.isPlaying = !this.isPlaying;
   }
@@ -72,15 +75,15 @@ export class VideoComponent implements OnInit {
 
   updateHandler(event) {
     const duration = event.currentTarget.duration;
-    const current = event.currentTarget.currentTime;
-    const value = (100 / duration) * current;
+    this.currentVideoTime = event.currentTarget.currentTime;
+    const value = (100 / duration) * this.currentVideoTime;
     this.progressBarValue = value;
     console.log('VideoComponent: updateHandler value=', value, this.progressBarValue);
     /*this.sliderRef.setAttribute('value', value);
     this.sliderRef.refresh();*/
 
-    const curmins = Math.floor(current / 60);
-    const cursecs = Math.floor(current - curmins * 60);
+    const curmins = Math.floor(this.currentVideoTime / 60);
+    const cursecs = Math.floor(this.currentVideoTime - curmins * 60);
     const durmins = Math.floor(duration / 60);
     const dursecs = Math.floor(duration - durmins * 60);
     const ttime = dursecs + (durmins * 60);

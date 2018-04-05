@@ -49,6 +49,12 @@ export class ApplicationmodelService {
 
   set event(value: any) {
     console.log('ApplicationmodelService: event - value=', value);
+    const data = {
+      'sessionId': this.initValues.sessionId,
+      'segmentId': this.initValues.files[this.currentSection].segmentId,
+      'event': value
+    };
+    this.dataHandler.sendData('eventFromPlayer', data);
   }
 
   private initLoaded(data): void {
