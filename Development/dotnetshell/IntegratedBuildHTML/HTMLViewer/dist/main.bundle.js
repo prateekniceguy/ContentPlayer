@@ -252,7 +252,7 @@ var VideoComponent = /** @class */ (function () {
     };
     Object.defineProperty(VideoComponent.prototype, "path", {
         get: function () {
-            console.log('VideoComponent: path=', this.appModel.content.id + '/' + this.appModel.content.contentData.data['path']);
+            // console.log('VideoComponent: path=', this.appModel.content.id + '/' + this.appModel.content.contentData.data['path']);
             return this.appModel.content.id + '/' + this.appModel.content.contentData.data['path'];
         },
         enumerable: true,
@@ -260,7 +260,7 @@ var VideoComponent = /** @class */ (function () {
     });
     Object.defineProperty(VideoComponent.prototype, "sourceType", {
         get: function () {
-            console.log('VideoComponent: sourceType=', this.appModel.content.contentData.data['type']);
+            // console.log('VideoComponent: sourceType=', this.appModel.content.contentData.data['type']);
             return this.appModel.content.contentData.data['type'];
         },
         enumerable: true,
@@ -796,10 +796,11 @@ var ExternalcommunicationService = /** @class */ (function () {
         }
         else {
             // invoke a server side method, with parameters
-            this.connection.invoke(name, value).then(function (data) {
+            (_a = this.connection).invoke.apply(_a, [name].concat(value)).then(function (data) {
                 console.log('ExternalcommunicationService: call - data=', data);
             });
         }
+        var _a;
     };
     ExternalcommunicationService.prototype.connected = function () {
         var _this = this;
@@ -839,6 +840,7 @@ var ExternalcommunicationService = /** @class */ (function () {
     };
     ExternalcommunicationService.prototype.sendData = function (id, data) {
         this.call(id, [JSON.stringify(data)]);
+        // this.call(id, ['{"sessionId":"kf","segmentId":211,"event":{"action":"pause","time":1522999473225,"currentPosition":0.829668}}']);
     };
     ExternalcommunicationService.prototype.dataLoadedSuccess = function () {
         this.success(this.initValues);
