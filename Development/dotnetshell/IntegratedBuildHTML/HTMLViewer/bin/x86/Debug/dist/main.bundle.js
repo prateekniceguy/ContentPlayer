@@ -264,15 +264,7 @@ var VideoComponent = /** @class */ (function () {
         this.appModel.event = { 'action': 'segmentBegins' };
     };
     VideoComponent.prototype.updatePlay = function (event) {
-        if (this.isPlaying) {
-            this.mainVideo.nativeElement.pause();
-            this.appModel.event = { 'action': 'pause', 'time': new Date().getTime(), 'currentPosition': this.currentVideoTime };
-        }
-        else {
-            this.mainVideo.nativeElement.play();
-            this.appModel.event = { 'action': 'play' };
-        }
-        this.isPlaying = !this.isPlaying;
+        this.isPlaying ? this.pauseVideo() : this.playVideo();
     };
     Object.defineProperty(VideoComponent.prototype, "path", {
         get: function () {
@@ -293,10 +285,12 @@ var VideoComponent = /** @class */ (function () {
     VideoComponent.prototype.playVideo = function () {
         this.isPlaying = true;
         this.mainVideo.nativeElement.play();
+        this.appModel.event = { 'action': 'play' };
     };
     VideoComponent.prototype.pauseVideo = function () {
         this.isPlaying = false;
         this.mainVideo.nativeElement.pause();
+        this.appModel.event = { 'action': 'pause', 'time': new Date().getTime(), 'currentPosition': this.currentVideoTime };
     };
     VideoComponent.prototype.updateHandler = function (event) {
         var duration = event.currentTarget.duration;
@@ -782,10 +776,11 @@ var DataloaderService = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExternalcommunicationService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__initdatareader__ = __webpack_require__("../../../../../src/app/model/initdatareader.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__initializationapi__ = __webpack_require__("../../../../../src/app/model/initializationapi.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dharapvj_ngx_signalr__ = __webpack_require__("../../../../@dharapvj/ngx-signalr/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_playerconstants__ = __webpack_require__("../../../../../src/app/common/playerconstants.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__initdatareader__ = __webpack_require__("../../../../../src/app/model/initdatareader.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__initializationapi__ = __webpack_require__("../../../../../src/app/model/initializationapi.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dharapvj_ngx_signalr__ = __webpack_require__("../../../../@dharapvj/ngx-signalr/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -799,24 +794,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ExternalcommunicationService = /** @class */ (function () {
     function ExternalcommunicationService(signalInstance) {
-        this.proxyName = 'HTMLPlayerHub';
         console.log('ExternalcommunicationService: constructor');
         this.signalInstance = signalInstance;
-        // this.connect();
-        // Constructor initialization
-        /*this.connectionEstablished = new EventEmitter<Boolean>();// existing code to delete
-        this.messageReceived = new EventEmitter<any>();
-        this.connectionExists = false;
-        // create hub connection
-        this.connection = $.hubConnection('http://localhost:8082/signalr');
-        // create new proxy as name already given in to
-        this.proxy = this.connection.createHubProxy(this.proxyName);
-        // register on server events
-        this.registerOnServerEvents();
-        // call the connecion start method to start the connection to send and receive events.
-        this.startConnection();*/
     }
     ExternalcommunicationService.prototype.connect = function () {
         var _this = this;
@@ -854,34 +836,44 @@ var ExternalcommunicationService = /** @class */ (function () {
         var _this = this;
         console.log('ExternalcommunicationService: connected');
         // create a listener object
-        var open = new __WEBPACK_IMPORTED_MODULE_3__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('open');
+        var open = new __WEBPACK_IMPORTED_MODULE_4__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('open');
         // register the listener
         this.connection.listen(open);
         // subscribe for incoming messages
         open.subscribe(function (value) {
             console.log('ExternalcommunicationService: connected - open=', value);
-            _this.initValues = new __WEBPACK_IMPORTED_MODULE_0__initdatareader__["a" /* InitDataReader */]().read(JSON.parse(value));
+            _this.initValues = new __WEBPACK_IMPORTED_MODULE_1__initdatareader__["a" /* InitDataReader */]().read(JSON.parse(value));
             _this.dataLoadedSuccess();
             console.log('DataloaderService: loadData', _this.initValues);
         });
         // create a listener object
-        var cmsPlayerPlay = new __WEBPACK_IMPORTED_MODULE_3__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('cmsPlayerPlay');
+        var cmsPlayerPlay = new __WEBPACK_IMPORTED_MODULE_4__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */](__WEBPACK_IMPORTED_MODULE_0__common_playerconstants__["a" /* PlayerConstants */].CMS_PLAYER_PLAY);
         // register the listener
         this.connection.listen(cmsPlayerPlay);
         // subscribe for incoming messages
         cmsPlayerPlay.subscribe(function (value) {
             console.log('ExternalcommunicationService: connected - cmsPlayerPlay=', value);
-            var info = new __WEBPACK_IMPORTED_MODULE_1__initializationapi__["b" /* Info */]('cmsPlayerPlay', value);
+            var info = new __WEBPACK_IMPORTED_MODULE_2__initializationapi__["b" /* Info */](__WEBPACK_IMPORTED_MODULE_0__common_playerconstants__["a" /* PlayerConstants */].CMS_PLAYER_PLAY, value);
             _this.listener(info);
         });
         // create a listener object
-        var cmsPlayerPause = new __WEBPACK_IMPORTED_MODULE_3__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('cmsPlayerPause');
+        var cmsPlayerPause = new __WEBPACK_IMPORTED_MODULE_4__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */](__WEBPACK_IMPORTED_MODULE_0__common_playerconstants__["a" /* PlayerConstants */].CMS_PLAYER_PAUSE);
         // register the listener
         this.connection.listen(cmsPlayerPause);
         // subscribe for incoming messages
         cmsPlayerPause.subscribe(function (value) {
             console.log('ExternalcommunicationService: connected - cmsPlayerPause=', value);
-            var info = new __WEBPACK_IMPORTED_MODULE_1__initializationapi__["b" /* Info */]('cmsPlayerPause', value);
+            var info = new __WEBPACK_IMPORTED_MODULE_2__initializationapi__["b" /* Info */](__WEBPACK_IMPORTED_MODULE_0__common_playerconstants__["a" /* PlayerConstants */].CMS_PLAYER_PAUSE, value);
+            _this.listener(info);
+        });
+        // create a listener object
+        var cmsPlayerClose = new __WEBPACK_IMPORTED_MODULE_4__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */](__WEBPACK_IMPORTED_MODULE_0__common_playerconstants__["a" /* PlayerConstants */].CMS_PLAYER_CLOSE);
+        // register the listener
+        this.connection.listen(cmsPlayerPause);
+        // subscribe for incoming messages
+        cmsPlayerPause.subscribe(function (value) {
+            console.log('ExternalcommunicationService: connected - cmsPlayerClose=', value);
+            var info = new __WEBPACK_IMPORTED_MODULE_2__initializationapi__["b" /* Info */](__WEBPACK_IMPORTED_MODULE_0__common_playerconstants__["a" /* PlayerConstants */].CMS_PLAYER_CLOSE, value);
             _this.listener(info);
         });
     };
@@ -901,8 +893,8 @@ var ExternalcommunicationService = /** @class */ (function () {
         throw new Error('Method not implemented.');
     };
     ExternalcommunicationService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__dharapvj_ngx_signalr__["b" /* SignalR */]])
+        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__dharapvj_ngx_signalr__["b" /* SignalR */]])
     ], ExternalcommunicationService);
     return ExternalcommunicationService;
 }());

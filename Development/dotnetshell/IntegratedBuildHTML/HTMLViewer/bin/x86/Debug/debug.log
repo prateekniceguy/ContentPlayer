@@ -5261,3 +5261,6 @@
 [0406/215807:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-090FA4A8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
 [0406/215807:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-090FA4A8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
 [0406/215807:ERROR:gles2_cmd_decoder.cc(15720)] [.RenderWorker-090FA4A8]GL ERROR :GL_INVALID_VALUE : glCopySubTextureCHROMIUM: source texture has no level 0
+[0406/220039:ERROR:mf_helpers.cc(12)] Error in dxva_video_decode_accelerator_win.cc on line 345
+[0406/220224:ERROR:mf_helpers.cc(12)] Error in dxva_video_decode_accelerator_win.cc on line 345
+[0406/221751:ERROR:mf_helpers.cc(12)] Error in dxva_video_decode_accelerator_win.cc on line 345
