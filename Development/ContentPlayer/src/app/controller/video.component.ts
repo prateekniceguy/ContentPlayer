@@ -78,14 +78,7 @@ export class VideoComponent implements OnInit {
   }
 
   updatePlay(event) {
-    if (this.isPlaying) {
-      this.mainVideo.nativeElement.pause();
-      this.appModel.event = {'action': 'pause', 'time': new Date().getTime(), 'currentPosition': this.currentVideoTime};
-    } else {
-      this.mainVideo.nativeElement.play();
-      this.appModel.event = {'action': 'play'};
-    }
-    this.isPlaying = !this.isPlaying;
+    this.isPlaying ? this.pauseVideo() : this.playVideo();
   }
 
   get path(): string {
@@ -101,11 +94,13 @@ export class VideoComponent implements OnInit {
   private playVideo() {
     this.isPlaying = true;
     this.mainVideo.nativeElement.play();
+    this.appModel.event = {'action': 'play'};
   }
 
   private pauseVideo() {
     this.isPlaying = false;
     this.mainVideo.nativeElement.pause();
+    this.appModel.event = {'action': 'pause', 'time': new Date().getTime(), 'currentPosition': this.currentVideoTime};
   }
 
   updateHandler(event) {
