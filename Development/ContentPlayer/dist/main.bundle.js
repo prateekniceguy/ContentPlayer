@@ -153,6 +153,9 @@ var PlayerConstants = /** @class */ (function () {
     }
     PlayerConstants.JSON_FILE_EXTENSION = '.json';
     PlayerConstants.BASE_FILE = 'base' + PlayerConstants.JSON_FILE_EXTENSION;
+    PlayerConstants.CMS_PLAYER_PLAY = 'cmsPlayerPlay';
+    PlayerConstants.CMS_PLAYER_PAUSE = 'cmsPlayerPause';
+    PlayerConstants.CMS_PLAYER_CLOSE = 'cmsPlayerClose';
     return PlayerConstants;
 }());
 
@@ -201,8 +204,9 @@ var ContainerComponent = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VideoComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__model_applicationmodel_service__ = __webpack_require__("../../../../../src/app/model/applicationmodel.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_playerconstants__ = __webpack_require__("../../../../../src/app/common/playerconstants.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_applicationmodel_service__ = __webpack_require__("../../../../../src/app/model/applicationmodel.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -214,14 +218,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var VideoComponent = /** @class */ (function () {
     function VideoComponent(appModel) {
+        var _this = this;
         this.currentTime = 0;
         this.progressBarValue = 0;
         this.sliderRef = null;
         this.isPlaying = false;
         this.time = '00:00 / 00:00';
         this.appModel = appModel;
+        this.appModel.notification.subscribe(function (data) {
+            console.log('VideoComponent: constructor - data=', data);
+            switch (data) {
+                case __WEBPACK_IMPORTED_MODULE_0__common_playerconstants__["a" /* PlayerConstants */].CMS_PLAYER_PLAY:
+                    _this.playVideo();
+                    break;
+                case __WEBPACK_IMPORTED_MODULE_0__common_playerconstants__["a" /* PlayerConstants */].CMS_PLAYER_PAUSE:
+                    _this.pauseVideo();
+                    break;
+                case __WEBPACK_IMPORTED_MODULE_0__common_playerconstants__["a" /* PlayerConstants */].CMS_PLAYER_CLOSE:
+                    console.log('VideoComponent: constructor - cmsPlayerClose');
+                    break;
+                default:
+                    console.log('VideoComponent: constructor - default');
+                    break;
+            }
+        });
     }
     VideoComponent.prototype.ngOnInit = function () {
         var thisref = this;
@@ -238,6 +261,7 @@ var VideoComponent = /** @class */ (function () {
     };
     VideoComponent.prototype.loadedHandler = function (event) {
         this.duration = event.currentTarget.duration;
+        this.appModel.event = { 'action': 'segmentBegins' };
     };
     VideoComponent.prototype.updatePlay = function (event) {
         if (this.isPlaying) {
@@ -266,6 +290,14 @@ var VideoComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    VideoComponent.prototype.playVideo = function () {
+        this.isPlaying = true;
+        this.mainVideo.nativeElement.play();
+    };
+    VideoComponent.prototype.pauseVideo = function () {
+        this.isPlaying = false;
+        this.mainVideo.nativeElement.pause();
+    };
     VideoComponent.prototype.updateHandler = function (event) {
         var duration = event.currentTarget.duration;
         this.currentVideoTime = event.currentTarget.currentTime;
@@ -292,7 +324,11 @@ var VideoComponent = /** @class */ (function () {
     };
     VideoComponent.prototype.endedHandler = function (event) {
         console.log('VideoComponent: endedHandler');
+        this.appModel.event = { 'action': 'segmentEnds' };
         this.appModel.nextSection();
+    };
+    VideoComponent.prototype.close = function (event) {
+        this.appModel.event = { 'action': 'exit', 'currentPosition': this.currentVideoTime };
     };
     VideoComponent.prototype.convertDigits = function (value) {
         if (value < 10) {
@@ -303,17 +339,17 @@ var VideoComponent = /** @class */ (function () {
         }
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewChild"])('mainVideo'),
+        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["ViewChild"])('mainVideo'),
         __metadata("design:type", Object)
     ], VideoComponent.prototype, "mainVideo", void 0);
     VideoComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
+        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Component"])({
             selector: 'app-video',
             template: __webpack_require__("../../../../../src/app/view/layout/video.component.html"),
             styles: [__webpack_require__("../../../../../src/app/view/css/video.component.css"), __webpack_require__("../../../../../src/app/view/css/bootstrap.css"), __webpack_require__("../../../../../src/app/view/css/bootstrap-slider.css")],
-            encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].None,
+            encapsulation: __WEBPACK_IMPORTED_MODULE_2__angular_core__["ViewEncapsulation"].None,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__model_applicationmodel_service__["a" /* ApplicationmodelService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__model_applicationmodel_service__["a" /* ApplicationmodelService */]])
     ], VideoComponent);
     return VideoComponent;
 }());
@@ -333,6 +369,8 @@ var VideoComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__httphandler_service__ = __webpack_require__("../../../../../src/app/model/httphandler.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -342,6 +380,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -358,6 +397,8 @@ var ApplicationmodelService = /** @class */ (function () {
         ];
         this.externalCommunication = externalCommunication;
         this.dataLoader = dataLoader;
+        this.subject = new __WEBPACK_IMPORTED_MODULE_6_rxjs__["Subject"]();
+        this.notification = this.subject.asObservable();
         this.init();
     }
     ApplicationmodelService.prototype.init = function () {
@@ -396,12 +437,12 @@ var ApplicationmodelService = /** @class */ (function () {
         if (data.environment.lms.enabled) {
             console.log('ApplicationmodelService: initLoaded - environment.lms.enabled = true');
             this.dataHandler = this.externalCommunication;
-            this.dataHandler.loadData(data.environment.lms, this.baseLoaded.bind(this), this.baseFailed.bind(this));
+            this.dataHandler.loadData(data.environment.lms, this.listener.bind(this), this.baseLoaded.bind(this), this.baseFailed.bind(this));
         }
         else if (data.environment.standalone.enabled) {
             console.log('ApplicationmodelService: initLoaded - environment.standalone.enabled = true');
             this.dataHandler = this.dataLoader;
-            this.dataHandler.loadData(data.environment.standalone, this.baseLoaded.bind(this), this.baseFailed.bind(this));
+            this.dataHandler.loadData(data.environment.standalone, this.listener.bind(this), this.baseLoaded.bind(this), this.baseFailed.bind(this));
         }
         else {
             throw new Error('ApplicationmodelService: initLoaded - Incorrect startup config: init.json');
@@ -414,6 +455,10 @@ var ApplicationmodelService = /** @class */ (function () {
         this.load(this.initValues.files[this.currentActive]);
     };
     ApplicationmodelService.prototype.baseFailed = function (error) {
+    };
+    ApplicationmodelService.prototype.listener = function (data) {
+        console.log('ApplicationmodelService: listener - data = ', data);
+        this.subject.next(data.id);
     };
     ApplicationmodelService.prototype.initFailed = function (error) {
         console.log('ApplicationmodelService: initFailed - error = ', error);
@@ -703,7 +748,8 @@ var DataloaderService = /** @class */ (function () {
     function DataloaderService() {
         console.log('DataloaderService: constructor');
     }
-    DataloaderService.prototype.loadData = function (data, success, failure) {
+    DataloaderService.prototype.loadData = function (data, listener, success, failure) {
+        this.listener = listener;
         this.success = success;
         this.failure = failure;
         // throw new Error('Method not implemented.');
@@ -718,7 +764,7 @@ var DataloaderService = /** @class */ (function () {
         this.success(this.initValues);
     };
     DataloaderService.prototype.dataLoadedFailure = function () {
-        throw new Error('Method not implemented.');
+        this.failure('DataloaderService: dataLoadedFailure');
     };
     DataloaderService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Injectable"])(),
@@ -737,8 +783,9 @@ var DataloaderService = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExternalcommunicationService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__initdatareader__ = __webpack_require__("../../../../../src/app/model/initdatareader.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dharapvj_ngx_signalr__ = __webpack_require__("../../../../@dharapvj/ngx-signalr/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__initializationapi__ = __webpack_require__("../../../../../src/app/model/initializationapi.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dharapvj_ngx_signalr__ = __webpack_require__("../../../../@dharapvj/ngx-signalr/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -748,6 +795,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -806,7 +854,7 @@ var ExternalcommunicationService = /** @class */ (function () {
         var _this = this;
         console.log('ExternalcommunicationService: connected');
         // create a listener object
-        var open = new __WEBPACK_IMPORTED_MODULE_2__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('open');
+        var open = new __WEBPACK_IMPORTED_MODULE_3__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('open');
         // register the listener
         this.connection.listen(open);
         // subscribe for incoming messages
@@ -817,30 +865,34 @@ var ExternalcommunicationService = /** @class */ (function () {
             console.log('DataloaderService: loadData', _this.initValues);
         });
         // create a listener object
-        var cmsPlayerPlay = new __WEBPACK_IMPORTED_MODULE_2__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('cmsPlayerPlay');
+        var cmsPlayerPlay = new __WEBPACK_IMPORTED_MODULE_3__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('cmsPlayerPlay');
         // register the listener
         this.connection.listen(cmsPlayerPlay);
         // subscribe for incoming messages
         cmsPlayerPlay.subscribe(function (value) {
             console.log('ExternalcommunicationService: connected - cmsPlayerPlay=', value);
+            var info = new __WEBPACK_IMPORTED_MODULE_1__initializationapi__["b" /* Info */]('cmsPlayerPlay', value);
+            _this.listener(info);
         });
         // create a listener object
-        var cmsPlayerPause = new __WEBPACK_IMPORTED_MODULE_2__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('cmsPlayerPause');
+        var cmsPlayerPause = new __WEBPACK_IMPORTED_MODULE_3__dharapvj_ngx_signalr__["a" /* BroadcastEventListener */]('cmsPlayerPause');
         // register the listener
         this.connection.listen(cmsPlayerPause);
         // subscribe for incoming messages
         cmsPlayerPause.subscribe(function (value) {
             console.log('ExternalcommunicationService: connected - cmsPlayerPause=', value);
+            var info = new __WEBPACK_IMPORTED_MODULE_1__initializationapi__["b" /* Info */]('cmsPlayerPause', value);
+            _this.listener(info);
         });
     };
-    ExternalcommunicationService.prototype.loadData = function (data, success, failure) {
+    ExternalcommunicationService.prototype.loadData = function (data, listener, success, failure) {
+        this.listener = listener;
         this.success = success;
         this.failure = failure;
         this.connect();
     };
     ExternalcommunicationService.prototype.sendData = function (id, data) {
         this.call(id, [JSON.stringify(data)]);
-        // this.call(id, ['{"sessionId":"kf","segmentId":211,"event":{"action":"pause","time":1522999473225,"currentPosition":0.829668}}']);
     };
     ExternalcommunicationService.prototype.dataLoadedSuccess = function () {
         this.success(this.initValues);
@@ -849,8 +901,8 @@ var ExternalcommunicationService = /** @class */ (function () {
         throw new Error('Method not implemented.');
     };
     ExternalcommunicationService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__dharapvj_ngx_signalr__["b" /* SignalR */]])
+        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__dharapvj_ngx_signalr__["b" /* SignalR */]])
     ], ExternalcommunicationService);
     return ExternalcommunicationService;
 }());
@@ -967,7 +1019,7 @@ var InitDataReader = /** @class */ (function () {
             var inithelper = new __WEBPACK_IMPORTED_MODULE_0__initializationapi__["a" /* Helper */](data.files[i].startAt, data.files[i].segmentId, data.files[i].file);
             initHelperCollection.push(inithelper);
         }
-        return new __WEBPACK_IMPORTED_MODULE_0__initializationapi__["b" /* InitializationAPI */](data.homePath, data.forwardEnabled, data.playerPreview, data.sessionId, initHelperCollection);
+        return new __WEBPACK_IMPORTED_MODULE_0__initializationapi__["c" /* InitializationAPI */](data.homePath, data.forwardEnabled, data.playerPreview, data.sessionId, initHelperCollection);
     };
     return InitDataReader;
 }());
@@ -981,7 +1033,8 @@ var InitDataReader = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Helper; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return InitializationAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Info; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return InitializationAPI; });
 var Helper = /** @class */ (function () {
     function Helper(startAt, segmentId, file) {
         this._startAt = startAt;
@@ -1010,6 +1063,28 @@ var Helper = /** @class */ (function () {
         configurable: true
     });
     return Helper;
+}());
+
+var Info = /** @class */ (function () {
+    function Info(id, data) {
+        this._id = id;
+        this._data = data;
+    }
+    Object.defineProperty(Info.prototype, "id", {
+        get: function () {
+            return this._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Info.prototype, "data", {
+        get: function () {
+            return this._data;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Info;
 }());
 
 var InitializationAPI = /** @class */ (function () {
@@ -1291,7 +1366,7 @@ module.exports = "<div>\r\n  <router-outlet></router-outlet>\r\n</div>\r\n"
 /***/ "../../../../../src/app/view/layout/video.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- p>\r\n  video works!\r\n</p>\r\n<div style=\"border: 1px solid black;\">\r\n<nouislider id=\"slider\" [connect]=\"[true, false]\" [min]=\"0\" [max]=\"15\" [(ngModel)]=\"someRange\"></nouislider>\r\n\r\n<input name=\"foo\" type=\"text\" id=\"seek-bar\" min=\"0\" max=\"100\" value=\"0\" step=\"1\"/>\r\n</div-->\r\n<div id=\"sabseBadaContainer\"\r\n\tstyle=\"width: 100%; height: 100%; margin: auto; padding: 7px 7px 0 7px;\">\r\n\t<div id=\"exVideoContainer\"\r\n\t\tstyle=\"width: 79%; height: auto; background: purple; float: left; text-align: center;\">\r\n\t\t<video #mainVideo width=\"100%\" style=\"max-width: 100%\"\r\n\t\t\t[(currentTime)]=\"currentTime\"\r\n\t\t\t(loadedmetadata)=\"loadedHandler($event)\"\r\n\t\t\t(timeupdate)=\"updateHandler($event)\" (ended)=\"endedHandler($event)\">\r\n\t\t\t<source src=\"{{path}}\" type=\"{{sourceType}}\">\r\n\t\t</video>\r\n\t\t<!--<img width=\"100%\" src=\"images/img.jpg\">-->\r\n\t</div>\r\n\t<div id=\"emptyContainer\"\r\n\t\tstyle=\"width: 20%; height: auto; background: grey; float: right;\">\r\n\t\t<img width=\"100%\" src=\"images/img.jpg\">\r\n\t</div>\r\n\t<div id=\"controlsContainer\"\r\n\t\tstyle=\"display: flex; flex-wrap: wrap; margin: 0; clear: both; position: relative; top: 1%;\">\r\n\t\t<div id=\"playPauseContainer\" class=\"col-sm-1\"\r\n\t\t\t(click)=\"updatePlay($event)\"\r\n\t\t\tstyle=\"background: #ccc; margin: 0; position: relative; line-height: 3em; text-align: center;\">\r\n\t\t\t<div [ngStyle]=\"{'display': isPlaying ? 'none' : 'block'}\"\r\n\t\t\t\tstyle=\"cursor: pointer\">&#9654;</div>\r\n\t\t\t<div [ngStyle]=\"{'display': !isPlaying ? 'none' : 'block'}\"\r\n\t\t\t\tstyle=\"cursor: pointer\">&#10074;&#10074;</div>\r\n\t\t</div>\r\n\t\t<div id=\"sliderContainer\" class=\"col-sm-8\"\r\n\t\t\tstyle=\"background: #ddd; margin: 0; line-height: 3em; text-align: center;\">\r\n\t\t\t<input type=\"text\" id=\"seek-bar\" min=\"0\" max=\"100\"\r\n\t\t\t\tvalue=\"{{progressBarValue}}\" step=\"1\" />\r\n\t\t\t<!-- nouislider id=\"slider\" [connect]=\"[true, false]\" [min]=\"0\"\r\n\t\t\t\t[max]=\"100\" [(ngModel)]=\"progressBarValue\"></nouislider-->\r\n\t\t</div>\r\n\t\t<div id=\"timeContainer\" class=\"col-sm-1\"\r\n\t\t\tstyle=\"background: #ccc; margin: 0; line-height: 3em; text-align: center;\">{{time}}\r\n\t\t</div>\r\n\t\t<div id=\"volumeContainer\" class=\"col-sm-1\"\r\n\t\t\tstyle=\"background: #ccc; margin: 0; padding-bottom: 3px; line-height: 3em; text-align: center;\">\r\n\t\t\t<img style=\"max-width: 100%\" src=\"images/speaker.png\"> <input\r\n\t\t\t\ttype=\"range\" id=\"volume-bar\" min=\"0\" max=\"1\" step=\"0.1\" value=\"1\"\r\n\t\t\t\t(change)=\"updateVolume($event)\" />\r\n\t\t\t<!--&#128266;-->\r\n\t\t</div>\r\n\t\t<div id=\"autoPlayOnOffContainer\" class=\"col-sm-1\"\r\n\t\t\tstyle=\"background: #ddd; margin: 0; line-height: 3em; text-align: center;\">>>\r\n\t\t</div>\r\n\t</div>\r\n</div>"
+module.exports = "<!-- p>\r\n  video works!\r\n</p>\r\n<div style=\"border: 1px solid black;\">\r\n<nouislider id=\"slider\" [connect]=\"[true, false]\" [min]=\"0\" [max]=\"15\" [(ngModel)]=\"someRange\"></nouislider>\r\n\r\n<input name=\"foo\" type=\"text\" id=\"seek-bar\" min=\"0\" max=\"100\" value=\"0\" step=\"1\"/>\r\n</div-->\r\n<div id=\"sabseBadaContainer\"\r\n\tstyle=\"width: 100%; height: 100%; margin: auto; padding: 7px 7px 0 7px;\">\r\n\t<div id=\"exVideoContainer\"\r\n\t\tstyle=\"width: 79%; height: 96%; background: purple; float: left; text-align: center;\">\r\n\t\t<video #mainVideo width=\"100%\"\r\n\t\t\tstyle=\"max-width: 100%; max-height: 100%;\"\r\n\t\t\t[(currentTime)]=\"currentTime\"\r\n\t\t\t(loadedmetadata)=\"loadedHandler($event)\"\r\n\t\t\t(timeupdate)=\"updateHandler($event)\" (ended)=\"endedHandler($event)\">\r\n\t\t\t<source src=\"{{path}}\" type=\"{{sourceType}}\">\r\n\t\t</video>\r\n\t\t<!--<img width=\"100%\" src=\"images/img.jpg\">-->\r\n\t</div>\r\n\t<div id=\"emptyContainer\"\r\n\t\tstyle=\"width: 20%; height: auto; background: grey; float: right;\">\r\n\t\t<img width=\"100%\" src=\"images/img.jpg\">\r\n\t</div>\r\n\t<div id=\"controlsContainer\"\r\n\t\tstyle=\"display: flex; flex-wrap: wrap; margin: 0; clear: both; position: relative; height: 4%;\">\r\n\t\t<div id=\"playPauseContainer\" class=\"col-sm-1\"\r\n\t\t\t(click)=\"updatePlay($event)\"\r\n\t\t\tstyle=\"background: #ccc; margin: 0; position: relative; display: grid; align-items: center; justify-items: center; text-align: center;\">\r\n\t\t\t<div [ngStyle]=\"{'display': isPlaying ? 'none' : 'block'}\"\r\n\t\t\t\tstyle=\"cursor: pointer\">&#9654;</div>\r\n\t\t\t<div [ngStyle]=\"{'display': !isPlaying ? 'none' : 'block'}\"\r\n\t\t\t\tstyle=\"cursor: pointer\">&#10074;&#10074;</div>\r\n\t\t</div>\r\n\t\t<div id=\"sliderContainer\" class=\"col-sm-7\"\r\n\t\t\tstyle=\"background:#ddd; margin:0; display: grid; align-items: center; justify-items: center; text-align:center;\">\r\n\t\t\t<input type=\"text\" id=\"seek-bar\" min=\"0\" max=\"100\"\r\n\t\t\t\tvalue=\"{{progressBarValue}}\" step=\"1\" />\r\n\t\t\t<!-- nouislider id=\"slider\" [connect]=\"[true, false]\" [min]=\"0\"\r\n\t\t\t\t[max]=\"100\" [(ngModel)]=\"progressBarValue\"></nouislider-->\r\n\t\t</div>\r\n\t\t<div id=\"timeContainer\" class=\"col-sm-1\"\r\n\t\t\tstyle=\"background:#ccc; margin:0; display: grid; align-items: center; justify-items: center; text-align:center;\">{{time}}\r\n\t\t</div>\r\n\t\t<div id=\"volumeContainer\" class=\"col-sm-1\"\r\n\t\t\tstyle=\"background:#ccc; margin:0; display: grid; align-items: center; justify-items: center; text-align:center;\">\r\n\t\t\t<img style=\"max-width: 100%\" src=\"images/speaker.png\"> <input\r\n\t\t\t\ttype=\"range\" id=\"volume-bar\" min=\"0\" max=\"1\" step=\"0.1\" value=\"1\"\r\n\t\t\t\t(change)=\"updateVolume($event)\" />\r\n\t\t\t<!--&#128266;-->\r\n\t\t</div>\r\n\t\t<div id=\"autoPlayOnOffContainer\" class=\"col-sm-1\"\r\n\t\t\tstyle=\"background:#ddd; margin:0; display: grid; align-items: center; justify-items: center; text-align:center;\">>>\r\n\t\t</div>\r\n\t\t<div id=\"closeContainer\" class=\"col-sm-1\" (click)=\"close($event)\"\r\n\t\t\tstyle=\"background: #ddd; margin: 0; display: grid; align-items: center; justify-items: center; text-align: center;\">\r\n\t\t\tX</div>\r\n\t</div>\r\n</div>"
 
 /***/ }),
 
