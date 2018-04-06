@@ -1,5 +1,5 @@
 import {InitDataReader} from './initdatareader';
-import {InitializationAPI} from './initializationapi';
+import {InitializationAPI, Info} from './initializationapi';
 import {DataHandler} from './interfaces/dataHandler';
 import {Injectable, EventEmitter} from '@angular/core';
 import {SignalR, BroadcastEventListener} from '@dharapvj/ngx-signalr';
@@ -10,6 +10,7 @@ declare var $: any;
 export class ExternalcommunicationService implements DataHandler {
   private signalInstance: any;
   private initValues: InitializationAPI;
+  private listener;
   private success;
   private failure;
 
@@ -98,6 +99,8 @@ export class ExternalcommunicationService implements DataHandler {
     // subscribe for incoming messages
     cmsPlayerPlay.subscribe((value: any) => {
       console.log('ExternalcommunicationService: connected - cmsPlayerPlay=', value);
+      const info: Info = new Info('cmsPlayerPlay', value);
+      this.listener(info);
     });
 
     // create a listener object
@@ -107,12 +110,15 @@ export class ExternalcommunicationService implements DataHandler {
     // subscribe for incoming messages
     cmsPlayerPause.subscribe((value: any) => {
       console.log('ExternalcommunicationService: connected - cmsPlayerPause=', value);
+      const info: Info = new Info('cmsPlayerPause', value);
+      this.listener(info);
     });
 
   }
 
 
-  loadData(data, success, failure) {
+  loadData(data, listener, success, failure) {
+    this.listener = listener;
     this.success = success;
     this.failure = failure;
     this.connect();
@@ -120,7 +126,6 @@ export class ExternalcommunicationService implements DataHandler {
 
   sendData(id: string, data: any) {
     this.call(id, [JSON.stringify(data)]);
-    // this.call(id, ['{"sessionId":"kf","segmentId":211,"event":{"action":"pause","time":1522999473225,"currentPosition":0.829668}}']);
   }
 
   dataLoadedSuccess() {

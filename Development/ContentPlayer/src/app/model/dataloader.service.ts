@@ -6,6 +6,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class DataloaderService implements DataHandler {
   initValues: InitializationAPI;
+  private listener;
   private success;
   private failure;
 
@@ -13,7 +14,8 @@ export class DataloaderService implements DataHandler {
     console.log('DataloaderService: constructor');
   }
 
-  loadData(data, success, failure): void {
+  loadData(data, listener, success, failure): void {
+    this.listener = listener;
     this.success = success;
     this.failure = failure;
     // throw new Error('Method not implemented.');
@@ -31,7 +33,7 @@ export class DataloaderService implements DataHandler {
   }
 
   dataLoadedFailure(): void {
-    throw new Error('Method not implemented.');
+    this.failure('DataloaderService: dataLoadedFailure');
   }
 
 }

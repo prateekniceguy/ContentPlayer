@@ -1,3 +1,4 @@
+import {PlayerConstants} from '../common/playerconstants';
 import {ApplicationmodelService} from '../model/applicationmodel.service';
 import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 
@@ -27,6 +28,29 @@ export class VideoComponent implements OnInit {
 
   constructor(appModel: ApplicationmodelService) {
     this.appModel = appModel;
+
+    this.appModel.notification.subscribe(
+      (data) => {
+        console.log('VideoComponent: constructor - data=', data);
+        switch (data) {
+          case PlayerConstants.CMS_PLAYER_PLAY:
+            this.playVideo();
+            break;
+
+          case PlayerConstants.CMS_PLAYER_PAUSE:
+            this.pauseVideo();
+            break;
+
+          case PlayerConstants.CMS_PLAYER_CLOSE:
+            console.log('VideoComponent: constructor - cmsPlayerClose');
+            break;
+
+          default:
+            console.log('VideoComponent: constructor - default');
+            break;
+        }
+      }
+    );
   }
 
   ngOnInit() {
@@ -50,6 +74,7 @@ export class VideoComponent implements OnInit {
 
   loadedHandler(event) {
     this.duration = event.currentTarget.duration;
+    this.appModel.event = {'action': 'segmentBegins'};
   }
 
   updatePlay(event) {
@@ -71,6 +96,16 @@ export class VideoComponent implements OnInit {
   get sourceType(): string {
     // console.log('VideoComponent: sourceType=', this.appModel.content.contentData.data['type']);
     return this.appModel.content.contentData.data['type'];
+  }
+
+  private playVideo() {
+    this.isPlaying = true;
+    this.mainVideo.nativeElement.play();
+  }
+
+  private pauseVideo() {
+    this.isPlaying = false;
+    this.mainVideo.nativeElement.pause();
   }
 
   updateHandler(event) {
@@ -103,7 +138,12 @@ export class VideoComponent implements OnInit {
 
   endedHandler(event) {
     console.log('VideoComponent: endedHandler');
+    this.appModel.event = {'action': 'segmentEnds'};
     this.appModel.nextSection();
+  }
+
+  close(event) {
+    this.appModel.event = {'action': 'exit', 'currentPosition': this.currentVideoTime};
   }
 
   convertDigits(value: number): string {

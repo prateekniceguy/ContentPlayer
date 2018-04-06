@@ -4,10 +4,11 @@ import {ContentCollection} from './contentcollection';
 import {DataloaderService} from './dataloader.service';
 import {ExternalcommunicationService} from './externalcommunication.service';
 import {HttphandlerService} from './httphandler.service';
-import {InitializationAPI, Helper} from './initializationapi';
+import {InitializationAPI, Helper, Info} from './initializationapi';
 import {DataHandler} from './interfaces/dataHandler';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
+import {Subject, Observable} from 'rxjs';
 
 @Injectable()
 export class ApplicationmodelService {
@@ -20,6 +21,8 @@ export class ApplicationmodelService {
   private commonLoader: CommonloaderService;
   private contentCollection: ContentCollection;
   private router: Router;
+  private subject: Subject<string>;
+  public notification: Observable<string>;
   private config: any;
   private currentSection: number; // question
 
@@ -33,6 +36,8 @@ export class ApplicationmodelService {
     ];
     this.externalCommunication = externalCommunication;
     this.dataLoader = dataLoader;
+    this.subject = new Subject<string>();
+    this.notification = this.subject.asObservable();
     this.init();
   }
 
@@ -74,11 +79,12 @@ export class ApplicationmodelService {
     if (data.environment.lms.enabled) {
       console.log('ApplicationmodelService: initLoaded - environment.lms.enabled = true');
       this.dataHandler = this.externalCommunication;
-      this.dataHandler.loadData(data.environment.lms, this.baseLoaded.bind(this), this.baseFailed.bind(this));
+      this.dataHandler.loadData(data.environment.lms, this.listener.bind(this), this.baseLoaded.bind(this), this.baseFailed.bind(this));
     } else if (data.environment.standalone.enabled) {
       console.log('ApplicationmodelService: initLoaded - environment.standalone.enabled = true');
       this.dataHandler = this.dataLoader;
-      this.dataHandler.loadData(data.environment.standalone, this.baseLoaded.bind(this), this.baseFailed.bind(this));
+      this.dataHandler.loadData(data.environment.standalone,
+        this.listener.bind(this), this.baseLoaded.bind(this), this.baseFailed.bind(this));
     } else {
       throw new Error('ApplicationmodelService: initLoaded - Incorrect startup config: init.json');
     }
@@ -94,6 +100,11 @@ export class ApplicationmodelService {
 
   private baseFailed(error): void {
 
+  }
+
+  private listener(data: Info) {
+    console.log('ApplicationmodelService: listener - data = ', data);
+    this.subject.next(data.id);
   }
 
   private initFailed(error): void {
