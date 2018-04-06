@@ -71,7 +71,7 @@ export class ExternalcommunicationService implements DataHandler {
 
     } else {
       // invoke a server side method, with parameters
-      this.connection.invoke(name, value).then((data: any[]) => {
+      this.connection.invoke(name, ...value).then((data: any[]) => {
         console.log('ExternalcommunicationService: call - data=', data);
       });
     }
@@ -120,6 +120,7 @@ export class ExternalcommunicationService implements DataHandler {
 
   sendData(id: string, data: any) {
     this.call(id, [JSON.stringify(data)]);
+    // this.call(id, ['{"sessionId":"kf","segmentId":211,"event":{"action":"pause","time":1522999473225,"currentPosition":0.829668}}']);
   }
 
   dataLoadedSuccess() {

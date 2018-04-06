@@ -64,12 +64,12 @@ export class VideoComponent implements OnInit {
   }
 
   get path(): string {
-    console.log('VideoComponent: path=', this.appModel.content.id + '/' + this.appModel.content.contentData.data['path']);
+    // console.log('VideoComponent: path=', this.appModel.content.id + '/' + this.appModel.content.contentData.data['path']);
     return this.appModel.content.id + '/' + this.appModel.content.contentData.data['path'];
   }
 
   get sourceType(): string {
-    console.log('VideoComponent: sourceType=', this.appModel.content.contentData.data['type']);
+    // console.log('VideoComponent: sourceType=', this.appModel.content.contentData.data['type']);
     return this.appModel.content.contentData.data['type'];
   }
 
