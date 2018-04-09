@@ -22,7 +22,7 @@ export class VideoComponent implements OnInit {
   protected sliderRef = null;
 
   protected isPlaying = false;
-  protected time = '00:00 / 00:00';
+  protected time = PlayerConstants.TIME_FORMAT;
 
   @ViewChild('mainVideo') mainVideo;
 

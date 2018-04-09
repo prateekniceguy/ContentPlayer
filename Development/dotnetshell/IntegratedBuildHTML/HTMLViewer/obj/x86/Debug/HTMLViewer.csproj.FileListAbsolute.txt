@@ -2049,12 +2049,12 @@ E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\bin\x86\Debug\Microsoft.Owin.Security.xml
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\bin\x86\Debug\Microsoft.Owin.StaticFiles.xml
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\bin\x86\Debug\Newtonsoft.Json.xml
-E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\obj\x86\Debug\MainWindow.baml
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\obj\x86\Debug\MainWindow.g.cs
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\obj\x86\Debug\App.g.cs
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\obj\x86\Debug\HTMLViewer_Content.g.cs
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\obj\x86\Debug\HTMLViewer_MarkupCompile.cache
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\obj\x86\Debug\HTMLViewer_MarkupCompile.lref
+E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\obj\x86\Debug\MainWindow.baml
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\obj\x86\Debug\HTMLViewer.g.resources
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\obj\x86\Debug\HTMLViewer.Properties.Resources.resources
 E:\projects\player\nfg\ContentPlayer\Development\dotnetshell\IntegratedBuildHTML\HTMLViewer\obj\x86\Debug\HTMLViewer.csproj.GenerateResource.Cache

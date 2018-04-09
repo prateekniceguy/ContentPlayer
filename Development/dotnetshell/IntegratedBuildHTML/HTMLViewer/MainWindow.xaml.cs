@@ -41,7 +41,7 @@ namespace HTMLViewer
         {
 
             var settings = new CefSettings { RemoteDebuggingPort = 8088 };
-            browser.ShowDevTools();
+            //--browser.ShowDevTools();
             //Cef.Initialize(settings);
                                                                                                                                             
             var url = "http://localhost:8082";
