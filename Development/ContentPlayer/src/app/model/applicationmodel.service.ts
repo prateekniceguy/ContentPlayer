@@ -161,7 +161,7 @@ export class ApplicationmodelService {
     this.currentActive++;
     console.log('ApplicationmodelService: nextSection - currentActive=',
       this.currentActive, 'initValues.files.length', this.initValues.files.length);
-    if (this.currentActive >= this.initValues.files.length - 1) {
+    if (this.currentActive <= this.initValues.files.length - 1) {
       this.load(this.initValues.files[this.currentActive]);
     } else {
       // finished
