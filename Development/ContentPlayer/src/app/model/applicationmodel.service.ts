@@ -124,6 +124,17 @@ export class ApplicationmodelService {
     this.runContent();
   }
 
+  public previousSection(): void {
+    this.currentSection--;
+    console.log('ApplicationmodelService: previousSection - currentSection=',
+      this.currentSection, 'contentCollection.collection.length', this.contentCollection.collection.length);
+    if (this.currentSection <= 0) {
+      this.previousCollection();
+    } else {
+      this.runContent();
+    }
+  }
+
   public nextSection(): void {
     this.currentSection++;
     console.log('ApplicationmodelService: nextSection - currentSection=',
@@ -132,6 +143,17 @@ export class ApplicationmodelService {
       this.nextCollection();
     } else {
       this.runContent();
+    }
+  }
+
+  private previousCollection(): void {
+    this.currentActive--;
+    console.log('ApplicationmodelService: previousCollection - currentActive=',
+      this.currentActive, 'initValues.files.length', this.initValues.files.length);
+    if (this.currentActive >= 0) {
+      this.load(this.initValues.files[this.currentActive]);
+    } else {
+      // start
     }
   }
 
