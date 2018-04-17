@@ -146,6 +146,29 @@ export class ApplicationmodelService {
     }
   }
 
+  get autoPlay(): boolean {
+    return this.contentCollection.autoplay;
+  }
+
+  get isFirstSection(): boolean {
+    return (
+      (this.currentActive <= 0) && (this.currentSection <= 0)
+    );
+  }
+
+  get isLastSectionInCollection(): boolean {
+    return (
+      (this.currentSection >= this.contentCollection.collection.length - 1)
+    );
+  }
+
+  get isLastSection(): boolean {
+    return (
+      (this.currentActive >= this.initValues.files.length - 1) &&
+      (this.currentSection >= this.contentCollection.collection.length - 1)
+    );
+  }
+
   private previousCollection(): void {
     this.currentActive--;
     console.log('ApplicationmodelService: previousCollection - currentActive=',
